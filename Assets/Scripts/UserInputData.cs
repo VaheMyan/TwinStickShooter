@@ -13,6 +13,9 @@ public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
     public MonoBehaviour ChangeMaterialAction;
     public MonoBehaviour AimAction;
 
+    public List<MonoBehaviour> BillboardActions = new List<MonoBehaviour>();
+    private Billboard[] billboards;
+
     public float speed;
     public float runSpeed;
     public string moveAnimHash;
@@ -22,6 +25,15 @@ public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
     public string dieAnimHash;
 
     [HideInInspector] public bool isTestRun;
+
+    private void Start()
+    {
+        billboards = GameObject.FindObjectsOfType<Billboard>();
+        foreach (var billboard in billboards)
+        {
+            BillboardActions.Add(billboard);
+        }
+    }
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {

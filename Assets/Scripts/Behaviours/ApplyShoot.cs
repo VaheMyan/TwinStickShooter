@@ -16,7 +16,6 @@ public class ApplyShoot : MonoBehaviour, IAbilityBullet
     bool isStartDestroy = false;
     bool isStartDestroForTwoSeconds = false;
     private GameObject player;
-    //private ApplyEnamyDamage enamyDamage;
     private bool isDamaging = false;
 
     public TrailRenderer trailRenderer;
@@ -33,20 +32,12 @@ public class ApplyShoot : MonoBehaviour, IAbilityBullet
         attackPoint = this.transform;
         if (this.gameObject.activeInHierarchy && !isDamaging)
         {
-            //Collider2D[] hitEnamies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enamyLayers);
-            //foreach (Collider2D enamy in hitEnamies)
-            //{
-            //    //enamyDamage = enamy.GetComponent<ApplyEnamyDamage>();
-            //    //enamyDamage.Execute();
-            //    isDamaging = true;
-            //}
-
             transform.position += transform.up * Speed * Time.deltaTime;
             DestroyBulletFroTwoSeconds();
         }
         if (isDamaging)
         {
-            DestroyBulletFroSeconds(0);
+            DestroyBulletFroSeconds(500);
         }
     }
 
@@ -78,6 +69,15 @@ public class ApplyShoot : MonoBehaviour, IAbilityBullet
                 isDamaging = false;
             }
             isStartDestroForTwoSeconds = false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Zombie")
+        {
+            other.GetComponent<ApplyZombieState>().TakeZombieDamage(2);
+            isDamaging = true;
         }
     }
 

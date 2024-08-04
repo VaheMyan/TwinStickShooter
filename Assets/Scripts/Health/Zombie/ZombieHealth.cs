@@ -3,19 +3,23 @@ using Unity.Entities;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
 
-public class PlayerHealth : MonoBehaviour, IConvertGameObjectToEntity
+public class ZombieHealth : MonoBehaviour, IConvertGameObjectToEntity
 {
     public int _maxHealth = 10;
     public int _currenthealth;
-    public HealthBar healthBar;
+    public ZombieHealthBar healthBar;
+    public ApplyZombieAnim zombieAnim;
+    public ApplyZombieMove zombieMove;
+    public GameObject Canvas;
 
     private Entity _entity;
     private EntityManager _dsManager;
+    private bool isDeathing = false;
 
     private void Start()
     {
         _currenthealth = _maxHealth;
-        healthBar.SetMaxHealth(_maxHealth);
+        healthBar.SetMaxHealthZombie(_maxHealth);
 
         //aimWeapon = GetComponent<ApplyAimWeapon>();
     }
@@ -28,35 +32,39 @@ public class PlayerHealth : MonoBehaviour, IConvertGameObjectToEntity
             _currenthealth = value;
             if (_currenthealth <= 0)
             {
-                Die();
+                //Die();
             }
         }
     }
     public async void Die()
     {
-        if (_entity != Entity.Null && _dsManager != null)
+        if (_entity != Entity.Null && _dsManager != null && isDeathing == false)
         {
-            await Task.Delay(410);
-            _dsManager.DestroyEntity(_entity);
-            await Task.Delay(410);
+            isDeathing = true;
 
-            SceneManager.LoadScene(0);
-        }
-        else
-        {
-            Debug.LogWarning("Entity or EntityManager is not set properly.");
+            zombieMove.targetTransform = null;
+
+            zombieAnim.ApplyAnim(zombieAnim.DeathAnimHash);
+            await Task.Delay(100);
+
+            Canvas.SetActive(false);
+            await Task.Delay(100);
+
+            _dsManager.DestroyEntity(_entity);
+            await Task.Delay(1000);
+            if (this != null) Destroy(gameObject);
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamageZombie(int damage)
     {
         _currenthealth -= damage;
-        healthBar.SetHealth(_currenthealth);
+        healthBar.SetHealthZombie(_currenthealth);
 
         if (_currenthealth <= 0) Die();
     }
 
-    public void GiveBenefit(int benefit)
+    public void GiveBenefitZombie(int benefit)
     {
         _currenthealth += benefit;
     }

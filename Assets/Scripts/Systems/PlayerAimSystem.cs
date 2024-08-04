@@ -20,6 +20,13 @@ public class PlayerAimSystem : ComponentSystem
 
                 ability.Execute();
             }
+            foreach (var billboard in inputData.BillboardActions)
+            {
+                if (billboard != null && billboard is IUpdate update)
+                {
+                    update.PerUpdate();
+                }
+            }
         });
     }
 
