@@ -1122,6 +1122,8 @@ GameObject:
   - component: {fileID: 3057236351074257704}
   - component: {fileID: 3057236351074257711}
   - component: {fileID: 772048697}
+  - component: {fileID: 1358645481}
+  - component: {fileID: 1358645482}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1182,16 +1184,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ApplyShootActions: []
   ShootAction: {fileID: 3057236351074257702}
-  RunAction: {fileID: 0}
-  ChangeMaterialAction: {fileID: 0}
+  ReloadAction: {fileID: 1358645481}
+  AmmoAction: {fileID: 1358645482}
   AimAction: {fileID: 3057236351074257704}
-  BillboardAction: {fileID: 0}
+  BillboardActions: []
   speed: 1
   runSpeed: 0.01
   moveAnimHash: MoveAnim
   moveAnimSpeedHash: MoveSpeed
   shootAnimHash: ShootAnim
-  getHitAnimHash: 
+  reloadAnimHash: ReloadAnim
   dieAnimHash: 
   isTestRun: 0
 --- !u!114 &3057236350077557306
@@ -1239,6 +1241,7 @@ MonoBehaviour:
   fireRate: 100
   bulletDamage: 10
   isShooting: 1
+  isReload: 0
   view: {fileID: 3057236351074257711}
 --- !u!114 &8091570655211953800
 MonoBehaviour:
@@ -1254,7 +1257,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 100
   _currenthealth: 0
-  healthBar: {fileID: 0}
 --- !u!114 &3057236351074257703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1270,7 +1272,6 @@ MonoBehaviour:
   pooledObjects: []
   objectToPool: {fileID: 6129759838159003270, guid: 56d8cf1e8dcf1824d9a36da4fd1e71c5,
     type: 3}
-  poolRoot: {fileID: 0}
   amountToPool: 15
 --- !u!114 &3057236351074257704
 MonoBehaviour:
@@ -1284,9 +1285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 560f36f846dbb814da4a6fc16c9d9c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraMain: {fileID: 0}
-  crosshairs: {fileID: 0}
   mousePosition: {x: 0, y: 0, z: 0}
+  crosshairs: {fileID: 0}
 --- !u!114 &3057236351074257711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1317,6 +1317,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   movementDirection: MovementDirection
+--- !u!114 &1358645481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2786625988399881768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1faf4d177a7b74294307b08795331e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canRealoading: 0
+  isReloading: 0
+--- !u!114 &1358645482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2786625988399881768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf26836a21c46ae428a6e0bc8d1454b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Guns:
+  - bulletsInClip: 30
 --- !u!1 &3082000822205420421
 GameObject:
   m_ObjectHideFlags: 0

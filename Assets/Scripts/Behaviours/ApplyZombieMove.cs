@@ -30,14 +30,20 @@ public class ApplyZombieMove : MonoBehaviour, IBehaviour
 
                 SetZombieRotation(targetTransform, 10);
                 zombieAnim.ApplyAnim(zombieAnim.WalkAnimHash, true);
+                zombieAnim.ApplyAnim(zombieAnim.WalkAnimHash, true, zombieAnim.walkAnimSpeed);
             }
-            else
+            else if (Vector3.Distance(targetTransform.position, transform.position) < 2f && Vector3.Distance(targetTransform.position, transform.position) > 1f)
             {
                 navMeshAgent.destination = navMeshAgent.transform.position;
 
                 SetZombieRotation(targetTransform, 10);
-                zombieAnim.ApplyAnim(zombieAnim.WalkAnimHash, false);
                 zombieAnim.ApplyAnim(zombieAnim.AttackAnimHash, true);
+            }
+            else
+            {
+                navMeshAgent.destination = -targetTransform.position;
+                SetZombieRotation(targetTransform, 10);
+                zombieAnim.ApplyAnim(zombieAnim.WalkAnimHash, true, -zombieAnim.walkAnimSpeed);
             }
         }
         else

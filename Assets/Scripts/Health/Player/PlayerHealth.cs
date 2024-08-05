@@ -7,13 +7,15 @@ public class PlayerHealth : MonoBehaviour, IConvertGameObjectToEntity
 {
     public int _maxHealth = 10;
     public int _currenthealth;
-    public HealthBar healthBar;
 
+    private HealthBar healthBar;
     private Entity _entity;
     private EntityManager _dsManager;
 
     private void Start()
     {
+        healthBar = FindObjectOfType<HealthBar>();
+
         _currenthealth = _maxHealth;
         healthBar.SetMaxHealth(_maxHealth);
 

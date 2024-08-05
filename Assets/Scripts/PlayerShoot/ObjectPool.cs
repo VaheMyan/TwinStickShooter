@@ -7,8 +7,9 @@ public class ObjectPool : MonoBehaviour
     public static ObjectPool SharedInstance;
     public List<GameObject> pooledObjects;
     public GameObject objectToPool;
-    public GameObject poolRoot;
     public int amountToPool;
+
+    private GameObject poolRoot;
 
     private void Awake()
     {
@@ -16,6 +17,8 @@ public class ObjectPool : MonoBehaviour
     }
     private void Start()
     {
+        poolRoot = GameObject.Find("PoolRoot");
+
         pooledObjects = new List<GameObject>();
         GameObject tmp;
         for (int i = 0; i < amountToPool; i++)

@@ -9,8 +9,8 @@ public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
 {
     public List<MonoBehaviour> ApplyShootActions = new List<MonoBehaviour>();
     public MonoBehaviour ShootAction;
-    public MonoBehaviour RunAction;
-    public MonoBehaviour ChangeMaterialAction;
+    public MonoBehaviour ReloadAction;
+    public MonoBehaviour AmmoAction;
     public MonoBehaviour AimAction;
 
     public List<MonoBehaviour> BillboardActions = new List<MonoBehaviour>();
@@ -21,13 +21,15 @@ public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
     public string moveAnimHash;
     public string moveAnimSpeedHash;
     public string shootAnimHash;
-    public string getHitAnimHash;
+    public string reloadAnimHash;
     public string dieAnimHash;
 
     [HideInInspector] public bool isTestRun;
 
     private void Start()
     {
+        Application.targetFrameRate = 120;
+
         billboards = GameObject.FindObjectsOfType<Billboard>();
         foreach (var billboard in billboards)
         {
@@ -61,7 +63,7 @@ public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
             _isTestRun = isTestRun
         });
 
-        if (ChangeMaterialAction != null && ChangeMaterialAction is IAbility)
+        if (AmmoAction != null && AmmoAction is IAbility)
         {
             dstManager.AddComponentData(entity, new ChangeMaterialData());
         }
@@ -74,9 +76,9 @@ public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
         {
             dstManager.AddComponentData(entity, new AttackAnimData());
         }
-        if (getHitAnimHash != String.Empty)
+        if (reloadAnimHash != String.Empty)
         {
-            dstManager.AddComponentData(entity, new GetHitAnimData());
+            dstManager.AddComponentData(entity, new ReloadHitAnimData());
         }
         if (dieAnimHash != String.Empty)
         {
@@ -91,7 +93,7 @@ public struct InputData : IComponentData
 {
     public float2 Move;
     public float Shoot;
-    public float Run;
+    public float Reload;
     public float ChangeMat;
     public int CollideInput;
 }
@@ -129,7 +131,7 @@ public struct AttackAnimData : IComponentData
 {
 
 }
-public struct GetHitAnimData : IComponentData
+public struct ReloadHitAnimData : IComponentData
 {
 
 }

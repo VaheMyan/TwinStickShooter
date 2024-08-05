@@ -7,23 +7,21 @@ public class UserInputSystem : ComponentSystem
 {
     public EntityQuery _inputQuery;
 
-    public InputAction _moveAcion; // sa sharjvelu gortsoghutyuny
-    public InputAction _shootAction; // sa krakelu gortsoghutyuny
-    public InputAction _runAction;
+    public InputAction _moveAcion;
+    public InputAction _shootAction;
+    public InputAction _reloadAction;
 
     private float2 _moveInput;
     private float _shootInput;
-    public float _runInput;
+    public float _reloadInput;
 
     protected override void OnCreate()
     {
         _inputQuery = GetEntityQuery(ComponentType.ReadOnly<InputData>(), ComponentType.ReadOnly<UserInputData>());
     }
 
-    protected override void OnStartRunning() // stex avelacnum es knopkeqy vory inch petq a ani
+    protected override void OnStartRunning()
     {
-        // OnStartRunning() - es ashxatum a erb hamakargy sksum a ashxatel
-
         // Joystik
         _moveAcion = new InputAction(name: "move", binding: "<Gamepad>/rightStick");
         _moveAcion.AddCompositeBinding("Dpad")
@@ -35,34 +33,35 @@ public class UserInputSystem : ComponentSystem
         _moveAcion.performed += context => { _moveInput = context.ReadValue<Vector2>(); };
         _moveAcion.started += context => { _moveInput = context.ReadValue<Vector2>(); };
         _moveAcion.canceled += context => { _moveInput = context.ReadValue<Vector2>(); };
-        _moveAcion.Enable(); // miacvum a _moveAcion-i ashxatanqy
+        _moveAcion.Enable();
 
-        _shootAction = new InputAction(name: "shoot", binding: "<Mouse>/leftButton"); // stex asum es vor _shootAction = new InputAction
-        // binding: "<Keyboard>/Space" krakelu knopkai vra script ka ytex yntrum es vor knpokeqy isk stex kanchum es dranq "<Keyboard>/Space"
+        _shootAction = new InputAction(name: "shoot", binding: "<Mouse>/leftButton");
         _shootAction.performed += context => { _shootInput = context.ReadValue<float>(); };
         _shootAction.started += context => { _shootInput = context.ReadValue<float>(); };
         _shootAction.canceled += context => { _shootInput = context.ReadValue<float>(); };
-        _shootAction.Enable(); // miacvum a _shootAction-i ashxatanqy
+        _shootAction.Enable();
 
-        _runAction = new InputAction(name: "run", binding: "<Keyboard>/LeftShift");
-        _runAction.performed += context => { _runInput = context.ReadValue<float>(); };
-        _runAction.started += context => { _runInput = context.ReadValue<float>(); };
-        _runAction.canceled += context => { _runInput = context.ReadValue<float>(); };
-        _runAction.Enable();
+        _reloadAction = new InputAction(name: "reload", binding: "<Mouse>/rightButton");
+        _reloadAction.performed += context => { _reloadInput = context.ReadValue<float>(); };
+        _reloadAction.started += context => { _reloadInput = context.ReadValue<float>(); };
+        _reloadAction.canceled += context => { _reloadInput = context.ReadValue<float>(); };
+        _reloadAction.Enable();
     }
 
-    protected override void OnStopRunning() // OnStopRunning() - es ashxatum a erb hamakargy dadarum a ashxatel
+    protected override void OnStopRunning()
     {
-        _moveAcion.Disable(); // kangnecvum a _moveAcion-i ashxatanqy
-        _shootAction.Disable(); // kangnecvum a _shootAction-i ashxatanqy
+        _moveAcion.Disable();
+        _shootAction.Disable();
+        _reloadAction.Disable();
     }
 
     protected override void OnUpdate()
     {
-        Entities.With(_inputQuery).ForEach((Entity entity, ref InputData inputData, PlayerHealth playerHealth) => // kap a hastatvum InputData script-i het
+        Entities.With(_inputQuery).ForEach((Entity entity, ref InputData inputData) =>
         {
             inputData.Move = _moveInput;
             inputData.Shoot = _shootInput;
+            inputData.Reload = _reloadInput;
         });
     }
 }

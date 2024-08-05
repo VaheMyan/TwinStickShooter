@@ -9,18 +9,25 @@ public class ShootAbility : MonoBehaviour, IAbility, IAbilityTarget
     public float fireRate;
     public float bulletDamage;
     public bool isShooting = false;
+    public bool isReload = false;
     public ShootingModel model;
     public ShootingView view;
 
     private ShootingPresenter shootingPresenter;
+    private ApplyPlayerAmmo applyPlayerAmmo;
     private float _shootTime = float.MinValue;
 
-    public void CanShoot(bool value)
+    public void CanShoot(int value)
     {
-        isShooting = value;
+        isShooting = (value != 0);
+    }
+    public void Reload(int value)
+    {
+        isReload = (value != 0);
     }
     private void Start()
     {
+        applyPlayerAmmo = GetComponent<ApplyPlayerAmmo>();
         model = new ShootingModel(bulletSpeed, fireRate, bulletDamage);
         shootingPresenter = new ShootingPresenter(model, view);
     }
@@ -32,6 +39,12 @@ public class ShootAbility : MonoBehaviour, IAbility, IAbilityTarget
         {
             _shootTime = Time.time;
             shootingPresenter.StartShooting();
+            applyPlayerAmmo.CheckGunBullets(0);
         }
+        if (isReload)
+        {
+            isShooting = false;
+        }
+
     }
 }

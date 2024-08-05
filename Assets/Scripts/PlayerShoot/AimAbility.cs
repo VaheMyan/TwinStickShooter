@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class AimAbility : MonoBehaviour, IAbility
 {
-    public Camera cameraMain;
-    public RectTransform crosshairs;
+    [HideInInspector] public Vector3 mousePosition;
+    [HideInInspector] public RectTransform crosshairs;
 
-    [HideInInspector]public Vector3 mousePosition;
+    private Camera cameraMain;
+
+    private void Start()
+    {
+        cameraMain = Camera.main;
+        crosshairs = GameObject.FindGameObjectWithTag("Aim").GetComponent<RectTransform>();
+    }
 
     public void Execute()
     {

@@ -9,18 +9,21 @@ public class PlayerAnimSystem : ComponentSystem
     private EntityQuery _query;
     protected override void OnCreate()
     {
-        _query = GetEntityQuery(ComponentType.ReadOnly<Animator>(), ComponentType.ReadOnly<InputData>(), ComponentType.ReadOnly<ApplyPlayerAnimDirection>());
+        _query = GetEntityQuery(ComponentType.ReadOnly<Animator>(), ComponentType.ReadOnly<InputData>(),
+            ComponentType.ReadOnly<ApplyPlayerAnimDirection>(), ComponentType.ReadOnly<ShootAbility>());
     }
 
     protected override void OnUpdate()
     {
-        Entities.With(_query).ForEach((Entity entity, ref InputData move, Animator animator, UserInputData inputData, PlayerHealth playerHealth, ApplyPlayerAnimDirection playerAnimDirection) =>
+        Entities.With(_query).ForEach((Entity entity, ref InputData move, Animator animator, UserInputData inputData,
+            PlayerHealth playerHealth, ApplyPlayerAnimDirection playerAnimDirection, ShootAbility shootAbility) =>
         {
             if (animator != null && inputData != null && playerHealth != null)
             {
                 animator.SetBool(inputData.moveAnimHash, Math.Abs(move.Move.x) > 0.05f || Math.Abs(move.Move.y) > 0.05f); // Walk anim
-                animator.SetBool(inputData.shootAnimHash, Math.Abs(move.Shoot) > 0f); // Attack aim
+                animator.SetBool(inputData.shootAnimHash, Math.Abs(move.Shoot) > 0f && shootAbility.isShooting); // Attack aim
 
+                animator.SetBool(inputData.reloadAnimHash, shootAbility.isReload);
 
 
                 float x = 0;
