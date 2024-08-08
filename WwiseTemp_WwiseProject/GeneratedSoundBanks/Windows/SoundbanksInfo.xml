@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="150">
+	<RootPaths>
+		<ProjectRoot>../..</ProjectRoot>
+		<SourceFilesRoot>../../.cache/Windows</SourceFilesRoot>
+		<SoundBanksRoot>.</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>.</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<SoundBanks>
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{935C7FDE-8CB9-8591-73B8-752FB7E78092}">
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+			<Plugins>
+				<AudioDevices>
+					<Plugin Id="2317455096" Name="No_Output" LibName="No Output" LibId="11862023"/>
+					<Plugin Id="3859886410" Name="System" LibName="System" LibId="11403271"/>
+				</AudioDevices>
+			</Plugins>
+			<Busses>
+				<Bus Id="1499694502" Name="SFXAudioBus"/>
+				<Bus Id="2293803806" Name="MusicAudioBus"/>
+			</Busses>
+			<GameParameters>
+				<GameParameter Id="988953028" Name="SFXVolume"/>
+				<GameParameter Id="2346531308" Name="MusicVolume"/>
+			</GameParameters>
+			<StateGroups>
+				<StateGroup Id="2974103762" Name="Mute">
+					<States>
+						<State Id="748895195" Name="None"/>
+					</States>
+				</StateGroup>
+			</StateGroups>
+		</SoundBank>
+		<SoundBank Id="4072029455" Type="User" Language="SFX" Hash="{EAC78158-7C1C-4EAC-6285-A76D9F0176BC}">
+			<ShortName>New_SoundBank</ShortName>
+			<Path>New_SoundBank.bnk</Path>
+			<Media>
+				<File Id="390434893" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>GunShootAk.wav</ShortName>
+					<CachePath>SFX/GunShootAk_818F3B66.wem</CachePath>
+				</File>
+				<File Id="432894526" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>CSReload.wav</ShortName>
+					<CachePath>SFX/CSReload_818F3B66.wem</CachePath>
+				</File>
+				<File Id="703387468" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>BackgroundMusic.wav</ShortName>
+					<CachePath>SFX/BackgroundMusic_FBC78EF0.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="4209827438" Name="AkReload" DurationType="OneShot" DurationMin="2.0124943" DurationMax="2.0124943">
+					<MediaRefs>
+						<MediaRef Id="432894526"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3496878282" Name="AkShoot" DurationType="OneShot" DurationMin="0.6037188" DurationMax="0.6037188">
+					<MediaRefs>
+						<MediaRef Id="390434893"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="626769978" Name="BackgroundMusic" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="703387468"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+		</SoundBank>
+	</SoundBanks>
+	<FileHash>{80F82095-4CFD-B513-431C-7CD05944F1B3}</FileHash>
+</SoundBanksInfo>

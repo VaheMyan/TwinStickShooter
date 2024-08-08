@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{0DF5EB75-97C9-4EE0-8B8C-A180BA264DAB}" SchemaVersion="119">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{0DF5EB75-97C9-4EE0-8B8C-A180BA264DAB}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="AkShoot" ID="{A2400ABD-8961-41C9-A8B0-5108ED97E9A5}">
+					<ChildrenList>
+						<Action Name="" ID="{02B536A8-9324-494E-96C9-31C1D34704F9}" ShortID="535259364">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="GunShootAk" ID="{2242102D-0C98-459B-8EAE-04B90AFACBB6}" WorkUnitID="{FF6078EE-E975-4DFF-BA6C-78E2D0AF4F4C}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="AkReload" ID="{8E5F8E17-0B86-4ACD-B8A0-6FA3C61DF517}">
+					<ChildrenList>
+						<Action Name="" ID="{12CFD991-BD4D-47A9-83B3-1D763CE110BD}" ShortID="776086895">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="CSReload" ID="{39812E87-6C97-4426-A887-74E325D6752F}" WorkUnitID="{FF6078EE-E975-4DFF-BA6C-78E2D0AF4F4C}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="BackgroundMusic" ID="{4E1F66BB-39D7-479A-9035-BAC4F5E99165}">
+					<ChildrenList>
+						<Action Name="" ID="{A675FC99-14BA-4193-B666-936011166F89}" ShortID="649294036">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="BackgroundMusic" ID="{955BAB5E-5C3B-4BA8-B18F-C60709D771C8}" WorkUnitID="{FF6078EE-E975-4DFF-BA6C-78E2D0AF4F4C}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

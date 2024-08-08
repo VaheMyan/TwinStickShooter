@@ -13,6 +13,7 @@ public class ShootAbility : MonoBehaviour, IAbility, IAbilityTarget
     public ShootingModel model;
     public ShootingView view;
 
+    private AudioManager audioManager;
     private ShootingPresenter shootingPresenter;
     private ApplyPlayerAmmo applyPlayerAmmo;
     private float _shootTime = float.MinValue;
@@ -27,6 +28,7 @@ public class ShootAbility : MonoBehaviour, IAbility, IAbilityTarget
     }
     private void Start()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         applyPlayerAmmo = GetComponent<ApplyPlayerAmmo>();
         model = new ShootingModel(bulletSpeed, fireRate, bulletDamage);
         shootingPresenter = new ShootingPresenter(model, view);
@@ -39,6 +41,7 @@ public class ShootAbility : MonoBehaviour, IAbility, IAbilityTarget
         {
             _shootTime = Time.time;
             shootingPresenter.StartShooting();
+            audioManager.PlaySFX("AkShoot");
             applyPlayerAmmo.CheckGunBullets(0);
         }
         if (isReload)

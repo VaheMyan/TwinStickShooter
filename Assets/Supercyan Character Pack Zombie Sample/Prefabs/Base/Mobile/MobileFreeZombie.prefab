@@ -499,7 +499,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dfbd58efb2b7e24cb217c7124685165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBoosted: 1
+  MoveSpeed: 4
   targetTransform: {fileID: 0}
+  isAttack: 0
+  isDamaging: 0
 --- !u!195 &8749466137586163991
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -588,6 +592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombieHealth: {fileID: 5407645262881270168}
+  zombieMove: {fileID: 2730287235193235474}
 --- !u!114 &1411511118
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,0 +1,10 @@
+Event	ID	Name			Wwise Object Path	Notes
+	626769978	BackgroundMusic			\Default Work Unit\BackgroundMusic	
+	3496878282	AkShoot			\Default Work Unit\AkShoot	
+	4209827438	AkReload			\Default Work Unit\AkReload	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	390434893	GunShootAk	D:\Unity\Program\GitHub\Games\TwinStickShooter\WwiseTemp_WwiseProject\.cache\Windows\SFX\GunShootAk_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\GunShootAk		106592
+	432894526	CSReload	D:\Unity\Program\GitHub\Games\TwinStickShooter\WwiseTemp_WwiseProject\.cache\Windows\SFX\CSReload_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\CSReload		355100
+	703387468	BackgroundMusic	D:\Unity\Program\GitHub\Games\TwinStickShooter\WwiseTemp_WwiseProject\.cache\Windows\SFX\BackgroundMusic_FBC78EF0.wem		\Actor-Mixer Hierarchy\Default Work Unit\BackgroundMusic		16883808
+

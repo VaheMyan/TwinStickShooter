@@ -1,0 +1,307 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7fd39778e4387846834c06d5f78ce8e, type: 3}
+  m_Name: AkWwiseProjectData
+  m_EditorClassIdentifier: 
+  AcousticTextureWwu:
+  - PhysicalPath: Virtual Acoustics\Default Work Unit.wwu
+    PathAndIcons:
+    - ElementName: Virtual Acoustics
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: 0110c4491dafe948ae56c205890d2c81
+    ParentPath: Virtual Acoustics\Default Work Unit
+    guid: 0110c4491dafe948ae56c205890d2c81
+    GuidInternal: 
+    m_lastTime: -8584816944522077391
+    List: []
+  AuxBusWwu:
+  - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
+    PathAndIcons:
+    - ElementName: Master-Mixer Hierarchy
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: b6eb320e26838e49af7543063138cf2d
+    ParentPath: Master-Mixer Hierarchy\Default Work Unit
+    guid: b6eb320e26838e49af7543063138cf2d
+    GuidInternal: 
+    m_lastTime: -8584785140379774388
+    List:
+    - name: MusicAudioBus
+      guid: d8a41415a61d2a41a17e75ca0c2149f3
+      id: 2293803806
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: b6eb320e26838e49af7543063138cf2d
+      - ElementName: MusicAudioBus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      Path: Master-Mixer Hierarchy\Default Work Unit\MusicAudioBus
+    - name: SFXAudioBus
+      guid: 4f7ca701b32e8d4aa9f05af3a3f7cf7a
+      id: 1499694502
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: b6eb320e26838e49af7543063138cf2d
+      - ElementName: SFXAudioBus
+        ObjectType: 2
+        guid: 4f7ca701b32e8d4aa9f05af3a3f7cf7a
+      Path: Master-Mixer Hierarchy\Default Work Unit\SFXAudioBus
+  BankWwu:
+  - PhysicalPath: SoundBanks\Default Work Unit.wwu
+    PathAndIcons:
+    - ElementName: SoundBanks
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: 727ce68e91f8074c9b81f8ae79796949
+    ParentPath: SoundBanks\Default Work Unit
+    guid: 727ce68e91f8074c9b81f8ae79796949
+    GuidInternal: 
+    m_lastTime: -8584785124194459245
+    List:
+    - name: New_SoundBank
+      guid: b21a87f9f652434d88f9fcb2c71fbd43
+      id: 4072029455
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 727ce68e91f8074c9b81f8ae79796949
+      - ElementName: New_SoundBank
+        ObjectType: 7
+        guid: b21a87f9f652434d88f9fcb2c71fbd43
+      Path: SoundBanks\Default Work Unit\New_SoundBank
+  EventWwu:
+  - PhysicalPath: Events\Default Work Unit.wwu
+    PathAndIcons:
+    - ElementName: Events
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: 75ebf50dc997e04e8b8ca180ba264dab
+    ParentPath: Events\Default Work Unit
+    guid: 75ebf50dc997e04e8b8ca180ba264dab
+    GuidInternal: 
+    m_lastTime: -8584785124680812236
+    List:
+    - name: AkReload
+      guid: 178e5f8e860bcd4ab8a06fa3c61df517
+      id: 4209827438
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 75ebf50dc997e04e8b8ca180ba264dab
+      - ElementName: AkReload
+        ObjectType: 3
+        guid: 178e5f8e860bcd4ab8a06fa3c61df517
+      Path: Events\Default Work Unit\AkReload
+      maxAttenuation: 0
+      maxDuration: 2.0124943
+      minDuration: 2.0124943
+    - name: AkShoot
+      guid: bd0a40a26189c941a8b05108ed97e9a5
+      id: 3496878282
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 75ebf50dc997e04e8b8ca180ba264dab
+      - ElementName: AkShoot
+        ObjectType: 3
+        guid: bd0a40a26189c941a8b05108ed97e9a5
+      Path: Events\Default Work Unit\AkShoot
+      maxAttenuation: 0
+      maxDuration: 0.6037188
+      minDuration: 0.6037188
+    - name: BackgroundMusic
+      guid: bb661f4ed7399a479035bac4f5e99165
+      id: 626769978
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 75ebf50dc997e04e8b8ca180ba264dab
+      - ElementName: BackgroundMusic
+        ObjectType: 3
+        guid: bb661f4ed7399a479035bac4f5e99165
+      Path: Events\Default Work Unit\BackgroundMusic
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+  RtpcWwu:
+  - PhysicalPath: Game Parameters\Default Work Unit.wwu
+    PathAndIcons:
+    - ElementName: Game Parameters
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: 3702c791650ece45ad319fbd7daab528
+    ParentPath: Game Parameters\Default Work Unit
+    guid: 3702c791650ece45ad319fbd7daab528
+    GuidInternal: 
+    m_lastTime: -8584785143135823133
+    List:
+    - name: MusicVolume
+      guid: 75e7c48b9c831244ac59477751a27ffc
+      id: 2346531308
+      PathAndIcons:
+      - ElementName: Game Parameters
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 3702c791650ece45ad319fbd7daab528
+      - ElementName: Volume
+        ObjectType: 4
+        guid: 5d97499723753745a9cb71d51af8adfd
+      - ElementName: MusicVolume
+        ObjectType: 13
+        guid: 75e7c48b9c831244ac59477751a27ffc
+      Path: Game Parameters\Default Work Unit\Volume\MusicVolume
+    - name: SFXVolume
+      guid: 22d4204c54276247ae53b498654c172e
+      id: 988953028
+      PathAndIcons:
+      - ElementName: Game Parameters
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 3702c791650ece45ad319fbd7daab528
+      - ElementName: Volume
+        ObjectType: 4
+        guid: 5d97499723753745a9cb71d51af8adfd
+      - ElementName: SFXVolume
+        ObjectType: 13
+        guid: 22d4204c54276247ae53b498654c172e
+      Path: Game Parameters\Default Work Unit\Volume\SFXVolume
+    - name: Volume
+      guid: 5d97499723753745a9cb71d51af8adfd
+      id: 2415836739
+      PathAndIcons:
+      - ElementName: Game Parameters
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 3702c791650ece45ad319fbd7daab528
+      - ElementName: Volume
+        ObjectType: 4
+        guid: 5d97499723753745a9cb71d51af8adfd
+      Path: Game Parameters\Default Work Unit\Volume
+  StateWwu:
+  - PhysicalPath: States\Default Work Unit.wwu
+    PathAndIcons:
+    - ElementName: States
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: fcc69fc905546f48857db10fb69f9883
+    ParentPath: States\Default Work Unit
+    guid: fcc69fc905546f48857db10fb69f9883
+    GuidInternal: 
+    m_lastTime: -8584785502449991825
+    List:
+    - name: Mute
+      guid: 6a699b2504140a468220cd01ca65c487
+      id: 2974103762
+      PathAndIcons:
+      - ElementName: States
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: fcc69fc905546f48857db10fb69f9883
+      - ElementName: Mute
+        ObjectType: 9
+        guid: 6a699b2504140a468220cd01ca65c487
+      Path: States\Default Work Unit\Mute
+      values:
+      - name: None
+        guid: 9b7b85cf3363e646b5d611b07f1ed5fd
+        id: 748895195
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: fcc69fc905546f48857db10fb69f9883
+        - ElementName: Mute
+          ObjectType: 9
+          guid: 6a699b2504140a468220cd01ca65c487
+        - ElementName: None
+          ObjectType: 8
+          guid: 9b7b85cf3363e646b5d611b07f1ed5fd
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
+  SwitchWwu:
+  - PhysicalPath: Switches\Default Work Unit.wwu
+    PathAndIcons:
+    - ElementName: Switches
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: 91850befb1fd70449b7f46969f08b6f7
+    ParentPath: Switches\Default Work Unit
+    guid: 91850befb1fd70449b7f46969f08b6f7
+    GuidInternal: 
+    m_lastTime: -8584816944522526191
+    List: []
+  TriggerWwu:
+  - PhysicalPath: Triggers\Default Work Unit.wwu
+    PathAndIcons:
+    - ElementName: Triggers
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: 719e7ca29cac8349bbd26d778b4f2de7
+    ParentPath: Triggers\Default Work Unit
+    guid: 719e7ca29cac8349bbd26d778b4f2de7
+    GuidInternal: 
+    m_lastTime: -8584816944521668481
+    List: []
+  ExpandedFileSystemItemIds: 
+  ExpandedWaapiItemIds: 020000000300000004000000050000000600000007000000080000000c0000000d0000000e0000000f00000017000000180000007400000075000000ea000000eb00000045010000460100007b0100007c01000047020000480200000f0300001003000011030000d3030000d4030000d5030000
+  AutoSyncSelection: 0
+  autoPopulateEnabled: 1
+  currentDataSource: 0
+  CurrentPluginConfig: 

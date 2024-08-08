@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ApplyPlayerAnimDirection : MonoBehaviour
 {
-    public float speed = 5.0f;
+    public float speed = 3.5f;
     public string movementDirection;
 
     private Animator animator;

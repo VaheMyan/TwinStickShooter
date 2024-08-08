@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{8EE67C72-F891-4C07-9B81-F8AE79796949}" SchemaVersion="119">
+	<SoundBanks>
+		<WorkUnit Name="Default Work Unit" ID="{8EE67C72-F891-4C07-9B81-F8AE79796949}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundBank Name="New_SoundBank" ID="{F9871AB2-52F6-4D43-88F9-FCB2C71FBD43}">
+					<ObjectInclusionList>
+						<ObjectRef Name="AkShoot" ID="{A2400ABD-8961-41C9-A8B0-5108ED97E9A5}" WorkUnitID="{0DF5EB75-97C9-4EE0-8B8C-A180BA264DAB}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="BackgroundMusic" ID="{4E1F66BB-39D7-479A-9035-BAC4F5E99165}" WorkUnitID="{0DF5EB75-97C9-4EE0-8B8C-A180BA264DAB}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="AkReload" ID="{8E5F8E17-0B86-4ACD-B8A0-6FA3C61DF517}" WorkUnitID="{0DF5EB75-97C9-4EE0-8B8C-A180BA264DAB}" Origin="Manual" Filter="7"/>
+					</ObjectInclusionList>
+					<ObjectExclusionList/>
+					<GameSyncExclusionList/>
+				</SoundBank>
+			</ChildrenList>
+		</WorkUnit>
+	</SoundBanks>
+</WwiseDocument>

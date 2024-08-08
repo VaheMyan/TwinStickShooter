@@ -11,12 +11,14 @@ public class ApplyReload : MonoBehaviour, IAbility
     private ApplyPlayerAmmo playerAmmo;
     private ShootAbility shootAbility;
     private Animator animator;
+    private AudioManager audioManager;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         playerAmmo = GetComponent<ApplyPlayerAmmo>();
         shootAbility = GetComponent<ShootAbility>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     public void Execute()
@@ -28,6 +30,7 @@ public class ApplyReload : MonoBehaviour, IAbility
 
             shootAbility.CanShoot(0);
             shootAbility.Reload(1);
+            audioManager.PlaySFX("AkReload");
 
             isReloading = false;
         }

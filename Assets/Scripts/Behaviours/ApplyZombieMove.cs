@@ -5,7 +5,11 @@ using UnityEngine.AI;
 
 public class ApplyZombieMove : MonoBehaviour, IBehaviour
 {
+    public bool isBoosted = false;
+    public float MoveSpeed;
     [HideInInspector] public Transform targetTransform;
+    [HideInInspector] public bool isAttack = false;
+    [HideInInspector] public bool isDamaging = false;
     private NavMeshAgent navMeshAgent;
     private ApplyZombieAnim zombieAnim;
 
@@ -22,31 +26,56 @@ public class ApplyZombieMove : MonoBehaviour, IBehaviour
     }
     public void Behaviour()
     {
-        if (targetTransform != null)
+        if (isBoosted)
+        {
+            if (Vector3.Distance(targetTransform.position, transform.position) < 15f && Vector3.Distance(targetTransform.position, transform.position) > 9.8f && !isAttack)
+            {
+                MoveToTarget(_speed: 2, _targetPosition: targetTransform.position);
+
+                //Animacion
+                zombieAnim.ApplyAnim(zombieAnim.WalkAnimHash, true);
+                zombieAnim.ApplyAnim(zombieAnim.WalkAnimHash, true, 2);
+            }
+            else if (Vector3.Distance(targetTransform.position, transform.position) < 10f)
+            {
+                isAttack = true;
+            }
+        }
+        else if (Vector3.Distance(targetTransform.position, transform.position) < 12f || isDamaging)
+        {
+            isAttack = true;
+        }
+        if (isDamaging)
+        {
+            isAttack = true;
+        }
+
+        if (targetTransform != null && isAttack)
         {
             if (Vector3.Distance(targetTransform.position, transform.position) > 2f)
             {
-                navMeshAgent.destination = targetTransform.position;
+                MoveToTarget(_speed: MoveSpeed, _targetPosition: targetTransform.position);
 
-                SetZombieRotation(targetTransform, 10);
+                //Animacion
                 zombieAnim.ApplyAnim(zombieAnim.WalkAnimHash, true);
                 zombieAnim.ApplyAnim(zombieAnim.WalkAnimHash, true, zombieAnim.walkAnimSpeed);
             }
             else if (Vector3.Distance(targetTransform.position, transform.position) < 2f && Vector3.Distance(targetTransform.position, transform.position) > 1f)
             {
-                navMeshAgent.destination = navMeshAgent.transform.position;
+                MoveToTarget(_speed: MoveSpeed, _targetPosition: navMeshAgent.transform.position);
 
-                SetZombieRotation(targetTransform, 10);
+                //Animacion
                 zombieAnim.ApplyAnim(zombieAnim.AttackAnimHash, true);
             }
             else
             {
-                navMeshAgent.destination = -targetTransform.position;
-                SetZombieRotation(targetTransform, 10);
+                MoveToTarget(_speed: MoveSpeed, _targetPosition: -targetTransform.position);
+
+                //Animacion
                 zombieAnim.ApplyAnim(zombieAnim.WalkAnimHash, true, -zombieAnim.walkAnimSpeed);
             }
         }
-        else
+        else if (targetTransform == null)
         {
             navMeshAgent.destination = navMeshAgent.transform.position;
         }
@@ -55,5 +84,12 @@ public class ApplyZombieMove : MonoBehaviour, IBehaviour
     {
         Quaternion targetRotation = Quaternion.LookRotation(_targetTransform.position - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _multiplier);
+    }
+    private void MoveToTarget(float _speed, Vector3 _targetPosition)
+    {
+        navMeshAgent.speed = _speed;
+        navMeshAgent.destination = _targetPosition;
+
+        SetZombieRotation(targetTransform, 10);
     }
 }
