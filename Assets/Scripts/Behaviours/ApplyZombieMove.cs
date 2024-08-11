@@ -7,7 +7,9 @@ public class ApplyZombieMove : MonoBehaviour, IBehaviour
 {
     public bool isBoosted = false;
     public float MoveSpeed;
-    [HideInInspector] public Transform targetTransform;
+    public float AttackDistance = 2f;
+    public float WalkkDistance = 12f;
+    public Transform targetTransform;
     [HideInInspector] public bool isAttack = false;
     [HideInInspector] public bool isDamaging = false;
     private NavMeshAgent navMeshAgent;
@@ -26,6 +28,8 @@ public class ApplyZombieMove : MonoBehaviour, IBehaviour
     }
     public void Behaviour()
     {
+        if (targetTransform == null) return;
+
         if (isBoosted)
         {
             if (Vector3.Distance(targetTransform.position, transform.position) < 15f && Vector3.Distance(targetTransform.position, transform.position) > 9.8f && !isAttack)
@@ -41,7 +45,7 @@ public class ApplyZombieMove : MonoBehaviour, IBehaviour
                 isAttack = true;
             }
         }
-        else if (Vector3.Distance(targetTransform.position, transform.position) < 12f || isDamaging)
+        else if (Vector3.Distance(targetTransform.position, transform.position) < WalkkDistance || isDamaging)
         {
             isAttack = true;
         }
@@ -52,16 +56,18 @@ public class ApplyZombieMove : MonoBehaviour, IBehaviour
 
         if (targetTransform != null && isAttack)
         {
-            if (Vector3.Distance(targetTransform.position, transform.position) > 2f)
+            if (Vector3.Distance(targetTransform.position, transform.position) > AttackDistance)
             {
+                //Walk
                 MoveToTarget(_speed: MoveSpeed, _targetPosition: targetTransform.position);
 
                 //Animacion
                 zombieAnim.ApplyAnim(zombieAnim.WalkAnimHash, true);
                 zombieAnim.ApplyAnim(zombieAnim.WalkAnimHash, true, zombieAnim.walkAnimSpeed);
             }
-            else if (Vector3.Distance(targetTransform.position, transform.position) < 2f && Vector3.Distance(targetTransform.position, transform.position) > 1f)
+            else if (Vector3.Distance(targetTransform.position, transform.position) < AttackDistance + 1 && Vector3.Distance(targetTransform.position, transform.position) > (AttackDistance - 1))
             {
+                //Attack
                 MoveToTarget(_speed: MoveSpeed, _targetPosition: navMeshAgent.transform.position);
 
                 //Animacion
@@ -87,9 +93,13 @@ public class ApplyZombieMove : MonoBehaviour, IBehaviour
     }
     private void MoveToTarget(float _speed, Vector3 _targetPosition)
     {
+        SetZombieRotation(targetTransform, 10);
+
+        //Zombie Arrow
+        AnimatorStateInfo stateInfo = zombieAnim.animator.GetCurrentAnimatorStateInfo(0);
+        if (stateInfo.IsName("AttackZombieArrow")) return;
+
         navMeshAgent.speed = _speed;
         navMeshAgent.destination = _targetPosition;
-
-        SetZombieRotation(targetTransform, 10);
     }
 }

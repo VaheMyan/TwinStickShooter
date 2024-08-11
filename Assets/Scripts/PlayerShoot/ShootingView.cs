@@ -10,7 +10,7 @@ public class ShootingView : MonoBehaviour
 
     private void Start()
     {
-        objectPool = GameObject.Find("Player").GetComponent<ObjectPool>();
+        objectPool = GameObject.FindWithTag("Player").GetComponent<ObjectPool>();
     }
     public void ShootBullet(Vector2 direction, float speed)
     {

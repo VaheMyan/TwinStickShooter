@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ApplyPlayerState : MonoBehaviour
 {
+    [HideInInspector] public bool isReduce = false;
     private PlayerHealth playerHealth;
 
     private void Start()
@@ -11,10 +12,18 @@ public class ApplyPlayerState : MonoBehaviour
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int _damage)
     {
-        playerHealth.TakeDamage(damage);
+        if (isReduce)
+        {
+            playerHealth.TakeDamage(_damage -= (_damage - (_damage / 3)));
+        }
+        else
+        {
+            playerHealth.TakeDamage(_damage);
+        }
     }
+
     public void GiveBenefit(int benefit)
     {
         playerHealth.GiveBenefit(benefit);

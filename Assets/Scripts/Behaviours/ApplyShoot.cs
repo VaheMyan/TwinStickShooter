@@ -7,16 +7,16 @@ using UnityEngine;
 public class ApplyShoot : MonoBehaviour, IAbilityBullet
 {
     public int Speed = 5;
+    public int BulletDamage = 2;
     public List<GameObject> Targets { get; set; }
-    public Transform targetTransform;
-    public float attackRange = 0.025f;
-    public LayerMask enamyLayers;
     public Transform attackPoint;
 
+    [HideInInspector] public bool isBonusBulletDamage = false;
     bool isStartDestroy = false;
     bool isStartDestroForTwoSeconds = false;
     private GameObject player;
     private bool isDamaging = false;
+    private GiveBonusAbility giveBonusAbility;
 
     public TrailRenderer trailRenderer;
 
@@ -26,6 +26,8 @@ public class ApplyShoot : MonoBehaviour, IAbilityBullet
         var applyShootActions = player.GetComponent<UserInputData>().ApplyShootActions;
         trailRenderer = GetComponentInChildren<TrailRenderer>();
         applyShootActions.Add(this);
+        giveBonusAbility = FindObjectOfType<GiveBonusAbility>();
+        giveBonusAbility.applyShoot.Add(this);
     }
     public void Execute()
     {
@@ -49,7 +51,6 @@ public class ApplyShoot : MonoBehaviour, IAbilityBullet
             await Task.Delay(seconds);
             if (this != null)
             {
-                trailRenderer.enabled = false;
                 this.gameObject.SetActive(false);
                 isDamaging = false;
             }
@@ -64,7 +65,6 @@ public class ApplyShoot : MonoBehaviour, IAbilityBullet
             await Task.Delay(2000);
             if (this != null)
             {
-                trailRenderer.enabled = false;
                 this.gameObject.SetActive(false);
                 isDamaging = false;
             }
@@ -76,7 +76,16 @@ public class ApplyShoot : MonoBehaviour, IAbilityBullet
     {
         if (other.tag == "Zombie")
         {
-            other.GetComponent<ApplyZombieState>().TakeZombieDamage(2);
+            if (isBonusBulletDamage)
+            {
+                BulletDamage = 5;
+
+            }
+            else
+            {
+                BulletDamage = 2;
+            }
+            other.GetComponent<ApplyZombieState>().TakeZombieDamage(BulletDamage);
             isDamaging = true;
         }
     }

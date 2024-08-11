@@ -9,7 +9,7 @@ public class ObjectPool : MonoBehaviour
     public GameObject objectToPool;
     public int amountToPool;
 
-    private GameObject poolRoot;
+    public GameObject poolRoot;
 
     private void Awake()
     {
@@ -17,7 +17,7 @@ public class ObjectPool : MonoBehaviour
     }
     private void Start()
     {
-        poolRoot = GameObject.Find("PoolRoot");
+        if (poolRoot == null) poolRoot = GameObject.Find("PoolRoot");
 
         pooledObjects = new List<GameObject>();
         GameObject tmp;
@@ -28,7 +28,7 @@ public class ObjectPool : MonoBehaviour
             pooledObjects.Add(tmp);
         }
     }
-    public GameObject GetPooledObject()
+    private GameObject GetPooledObject()
     {
         for (int i = 0; i < amountToPool; i++)
         {
@@ -41,12 +41,11 @@ public class ObjectPool : MonoBehaviour
     }
     public void InstantiateWithPool(Vector3 position, Quaternion rotation, Vector3 scale)
     {
-        var bullet = SharedInstance.GetPooledObject();
+        var bullet = GetPooledObject();
         bullet.transform.position = position;
         bullet.transform.rotation = rotation;
         bullet.transform.localScale = scale;
 
         bullet.SetActive(true);
-        bullet.GetComponent<ApplyShoot>().trailRenderer.enabled = true;
     }
 }

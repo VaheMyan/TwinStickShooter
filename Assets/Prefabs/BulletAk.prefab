@@ -40,7 +40,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1322552691019040343}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: -2049662971190754722}
   m_Layer: 0
   m_Name: BulletAk
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -286,11 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 100
-  targetTransform: {fileID: 0}
-  attackRange: 0.025
-  enamyLayers:
-    serializedVersion: 2
-    m_Bits: 0
+  BulletDamage: 2
   attackPoint: {fileID: 0}
   trailRenderer: {fileID: 0}
 --- !u!23 &-2049662971190754722

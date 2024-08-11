@@ -30,7 +30,7 @@ public class ApplyReload : MonoBehaviour, IAbility
 
             shootAbility.CanShoot(0);
             shootAbility.Reload(1);
-            audioManager.PlaySFX("AkReload");
+            audioManager?.PlaySFX("AkReload");
 
             isReloading = false;
         }

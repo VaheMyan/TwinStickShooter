@@ -78,18 +78,18 @@ public class Menu : MonoBehaviour
     //Music
     public void ToggleMusic() // Off On
     {
-        AudioManager.Instance.ToggleMusic(_musicCross);
+        AudioManager.Instance?.ToggleMusic(_musicCross);
     }
     public void ToggleSFX() // Off On
     {
-        AudioManager.Instance.ToggleSFX(_sfxCross);
+        AudioManager.Instance?.ToggleSFX(_sfxCross);
     }
     public void MusicVolume() // Volume Music
     {
-        AudioManager.Instance.MusiceVolume(_musicSlider.value);
+        AudioManager.Instance?.MusiceVolume(_musicSlider.value);
     }
     public void SFXVolume() // Volume Music
     {
-        AudioManager.Instance.SFXVolume(_sfxSlider.value);
+        AudioManager.Instance?.SFXVolume(_sfxSlider.value);
     }
 }

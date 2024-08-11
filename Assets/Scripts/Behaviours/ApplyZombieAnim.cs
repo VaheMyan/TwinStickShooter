@@ -12,8 +12,8 @@ public class ApplyZombieAnim : MonoBehaviour
     public string DeathAnimHash;
 
     [HideInInspector] public float walkAnimSpeed;
+    [HideInInspector] public Animator animator;
 
-    private Animator animator;
     private List<string> anims = new List<string>();
 
     private void Start()

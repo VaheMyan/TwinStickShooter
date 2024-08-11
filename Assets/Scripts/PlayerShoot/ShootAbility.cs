@@ -13,6 +13,7 @@ public class ShootAbility : MonoBehaviour, IAbility, IAbilityTarget
     public ShootingModel model;
     public ShootingView view;
 
+    [HideInInspector] public bool isBonusShootDelay = false;
     private AudioManager audioManager;
     private ShootingPresenter shootingPresenter;
     private ApplyPlayerAmmo applyPlayerAmmo;
@@ -36,12 +37,15 @@ public class ShootAbility : MonoBehaviour, IAbility, IAbilityTarget
     public List<GameObject> Targets { get; set; }
     public void Execute()
     {
+        if (isBonusShootDelay) shootDelay = 0.1f;
+        else shootDelay = 0.2f;
+
         if (Time.time < _shootTime + shootDelay) return;
-        if (isShooting)
+        if (isShooting )
         {
             _shootTime = Time.time;
             shootingPresenter.StartShooting();
-            audioManager.PlaySFX("AkShoot");
+            audioManager?.PlaySFX("AkShoot");
             applyPlayerAmmo.CheckGunBullets(0);
         }
         if (isReload)

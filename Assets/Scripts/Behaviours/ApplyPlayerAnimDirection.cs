@@ -7,6 +7,9 @@ public class ApplyPlayerAnimDirection : MonoBehaviour
     public float speed = 3.5f;
     public string movementDirection;
 
+    [HideInInspector] public bool isBonus = false;
+    private float bonusMoveSpeed = 1;
+    private float bonusMoveDirection = 0.4f;
     private Animator animator;
 
     void Start()
@@ -15,7 +18,20 @@ public class ApplyPlayerAnimDirection : MonoBehaviour
     }
     public void Execute(float horizontal, float vertical)
     {
-        Vector3 movement = new Vector3(horizontal, 0.0f, vertical).normalized * speed * Time.deltaTime;
+        //Bounse
+        if (isBonus)
+        {
+            bonusMoveSpeed = 1;
+            bonusMoveDirection = 0.4f;
+        }
+        else
+        {
+            bonusMoveSpeed = 0;
+            bonusMoveDirection = 0;
+        }
+
+        //Animation Direction
+        Vector3 movement = new Vector3(horizontal, 0.0f, vertical).normalized * (speed + bonusMoveSpeed) * Time.deltaTime;
 
         if (movement != Vector3.zero)
         {
@@ -33,19 +49,19 @@ public class ApplyPlayerAnimDirection : MonoBehaviour
 
         if (localMovement.z > 0)
         {
-            animator.SetFloat(movementDirection, 1); // Вперед
+            animator.SetFloat(movementDirection, 1 + bonusMoveDirection); // Вперед
         }
         else if (localMovement.z < 0)
         {
-            animator.SetFloat(movementDirection, -1); // Назад
+            animator.SetFloat(movementDirection, -1 + bonusMoveDirection); // Назад
         }
         else if (localMovement.x > 0)
         {
-            animator.SetFloat(movementDirection, 2); // Вправо
+            animator.SetFloat(movementDirection, 2 + bonusMoveDirection); // Вправо
         }
         else if (localMovement.x < 0)
         {
-            animator.SetFloat(movementDirection, -2); // Влево
+            animator.SetFloat(movementDirection, -2 + bonusMoveDirection); // Влево
         }
         else
         {

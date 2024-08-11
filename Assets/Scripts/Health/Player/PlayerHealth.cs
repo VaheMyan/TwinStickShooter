@@ -60,6 +60,11 @@ public class PlayerHealth : MonoBehaviour, IConvertGameObjectToEntity
 
     public void GiveBenefit(int benefit)
     {
+        if ((_currenthealth + benefit) > _maxHealth)
+        {
+            _currenthealth = _maxHealth;
+            return;
+        }
         _currenthealth += benefit;
     }
 

@@ -1125,6 +1125,7 @@ GameObject:
   - component: {fileID: 1358645481}
   - component: {fileID: 1358645482}
   - component: {fileID: 5825003045033404379}
+  - component: {fileID: 286205106213033962}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1274,6 +1275,7 @@ MonoBehaviour:
   objectToPool: {fileID: 6129759838159003270, guid: 56d8cf1e8dcf1824d9a36da4fd1e71c5,
     type: 3}
   amountToPool: 15
+  poolRoot: {fileID: 0}
 --- !u!114 &3057236351074257704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1316,7 +1318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb6c8040c430e7a40b5f2114fb4ce3b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 3.5
   movementDirection: MovementDirection
 --- !u!114 &1358645481
 MonoBehaviour:
@@ -1362,6 +1364,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!136 &286205106213033962
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2786625988399881768}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 3.741
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.87, z: 0}
 --- !u!1 &3082000822205420421
 GameObject:
   m_ObjectHideFlags: 0
@@ -3328,7 +3344,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: rifle_001
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -1280058959441750331, guid: c20daf91d2bce304c85fec03f5fafd3b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c20daf91d2bce304c85fec03f5fafd3b, type: 3}
 --- !u!4 &1941628748169270155 stripped
 Transform:
