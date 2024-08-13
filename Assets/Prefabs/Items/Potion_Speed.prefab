@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3830636612273119973}
   - component: {fileID: 1805747434}
   m_Layer: 0
-  m_Name: Potion_Mana
+  m_Name: Potion_Speed
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,14 +28,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6302028662349471881}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: -0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.256, y: 2.67, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 360, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &6302028662348423409
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -116,19 +116,6 @@ MonoBehaviour:
   itemType: 1
   BonusDuration: 15
   _ItemSprite: {fileID: 1276073732, guid: 05e578cfac0da484996167f68191c4d9, type: 3}
-  cells:
-  - UICell: {fileID: 0}
-    UIImages: {fileID: 0}
-    TimerText: {fileID: 0}
-  - UICell: {fileID: 0}
-    UIImages: {fileID: 0}
-    TimerText: {fileID: 0}
-  - UICell: {fileID: 0}
-    UIImages: {fileID: 0}
-    TimerText: {fileID: 0}
-  - UICell: {fileID: 0}
-    UIImages: {fileID: 0}
-    TimerText: {fileID: 0}
 --- !u!95 &1805747434
 Animator:
   serializedVersion: 5

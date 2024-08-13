@@ -12,6 +12,7 @@ TagManager:
   - BonusImage
   - TimerText
   - Bullet
+  - MedBox
   layers:
   - Default
   - TransparentFX

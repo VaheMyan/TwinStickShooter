@@ -315,7 +315,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2577541987097778191}
   - component: {fileID: 2488110317047262269}
-  - component: {fileID: 1135155433742854029}
   - component: {fileID: 6362463876902908241}
   - component: {fileID: 825570290307557779}
   - component: {fileID: 447647531259622225}
@@ -325,6 +324,7 @@ GameObject:
   - component: {fileID: 7500761862070421273}
   - component: {fileID: 790836777678723716}
   - component: {fileID: 150112904562231275}
+  - component: {fileID: 2417341866134926414}
   m_Layer: 0
   m_Name: SmallZombie
   m_TagString: Zombie
@@ -370,19 +370,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!114 &1135155433742854029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2580828245782198953}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConversionMode: 1
 --- !u!136 &6362463876902908241
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -533,6 +520,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 3
+--- !u!114 &2417341866134926414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2580828245782198953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConversionMode: 1
 --- !u!1 &2580879082637875131
 GameObject:
   m_ObjectHideFlags: 0

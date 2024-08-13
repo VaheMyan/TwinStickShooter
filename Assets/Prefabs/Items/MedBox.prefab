@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -49898102802276144}
   m_Layer: 0
   m_Name: MedBox
-  m_TagString: Item
+  m_TagString: MedBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,16 +132,3 @@ MonoBehaviour:
   itemType: -1
   BonusDuration: 0
   _ItemSprite: {fileID: 0}
-  cells:
-  - UICell: {fileID: 0}
-    UIImages: {fileID: 0}
-    TimerText: {fileID: 0}
-  - UICell: {fileID: 0}
-    UIImages: {fileID: 0}
-    TimerText: {fileID: 0}
-  - UICell: {fileID: 0}
-    UIImages: {fileID: 0}
-    TimerText: {fileID: 0}
-  - UICell: {fileID: 0}
-    UIImages: {fileID: 0}
-    TimerText: {fileID: 0}

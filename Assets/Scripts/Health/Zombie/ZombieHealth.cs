@@ -12,6 +12,7 @@ public class ZombieHealth : MonoBehaviour, IConvertGameObjectToEntity
     public ApplyZombieMove zombieMove;
     public GameObject Canvas;
 
+    private GameManager gameManager;
     private Entity _entity;
     private EntityManager _dsManager;
     private bool isDeathing = false;
@@ -21,7 +22,7 @@ public class ZombieHealth : MonoBehaviour, IConvertGameObjectToEntity
         _currenthealth = _maxHealth;
         healthBar.SetMaxHealthZombie(_maxHealth);
 
-        //aimWeapon = GetComponent<ApplyAimWeapon>();
+        gameManager = GameObject.FindObjectOfType<GameManager>();
     }
     public int Health
     {
@@ -52,6 +53,7 @@ public class ZombieHealth : MonoBehaviour, IConvertGameObjectToEntity
 
             _dsManager.DestroyEntity(_entity);
             await Task.Delay(1000);
+            gameManager.InstantiatePotion(transform.position);
             if (this != null) Destroy(gameObject);
         }
     }

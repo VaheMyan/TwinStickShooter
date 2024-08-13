@@ -12,6 +12,7 @@ public class ShootAbility : MonoBehaviour, IAbility, IAbilityTarget
     public bool isReload = false;
     public ShootingModel model;
     public ShootingView view;
+    public ParticleSystem shootPartical;
 
     [HideInInspector] public bool isBonusShootDelay = false;
     private AudioManager audioManager;
@@ -46,6 +47,7 @@ public class ShootAbility : MonoBehaviour, IAbility, IAbilityTarget
             _shootTime = Time.time;
             shootingPresenter.StartShooting();
             audioManager?.PlaySFX("AkShoot");
+            shootPartical.Play();
             applyPlayerAmmo.CheckGunBullets(0);
         }
         if (isReload)
