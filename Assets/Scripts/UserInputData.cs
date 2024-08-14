@@ -93,6 +93,7 @@ public struct InputData : IComponentData
 {
     public float2 Move;
     public float Shoot;
+    public float Pause;
     public float Reload;
     public float ChangeMat;
     public int CollideInput;

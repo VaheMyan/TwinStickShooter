@@ -1153,7 +1153,7 @@ GameObject:
   - component: {fileID: 4097755735521209670}
   m_Layer: 0
   m_Name: ZombieArrow
-  m_TagString: Zombie
+  m_TagString: ZombieArrow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1312,6 +1312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 30
   _currenthealth: 0
+  givePlayerScore: 15
   healthBar: {fileID: 2594047106344775871}
   zombieAnim: {fileID: 2594047104527641653}
   zombieMove: {fileID: 2594047104527641651}

@@ -9,10 +9,12 @@ public class UserInputSystem : ComponentSystem
 
     public InputAction _moveAcion;
     public InputAction _shootAction;
+    public InputAction _pauseAction;
     public InputAction _reloadAction;
 
     private float2 _moveInput;
     private float _shootInput;
+    private float _pouseInput;
     public float _reloadInput;
 
     protected override void OnCreate()
@@ -41,6 +43,12 @@ public class UserInputSystem : ComponentSystem
         _shootAction.canceled += context => { _shootInput = context.ReadValue<float>(); };
         _shootAction.Enable();
 
+        _pauseAction = new InputAction(name: "pouse", binding: "<Keyboard>/escape");
+        _pauseAction.performed += context => { _pouseInput = context.ReadValue<float>(); };
+        _pauseAction.started += context => { _pouseInput = context.ReadValue<float>(); };
+        _pauseAction.canceled += context => { _pouseInput = context.ReadValue<float>(); };
+        _pauseAction.Enable();
+
         _reloadAction = new InputAction(name: "reload", binding: "<Mouse>/rightButton");
         _reloadAction.performed += context => { _reloadInput = context.ReadValue<float>(); };
         _reloadAction.started += context => { _reloadInput = context.ReadValue<float>(); };
@@ -52,6 +60,7 @@ public class UserInputSystem : ComponentSystem
     {
         _moveAcion.Disable();
         _shootAction.Disable();
+        _pauseAction.Disable();
         _reloadAction.Disable();
     }
 
@@ -61,6 +70,7 @@ public class UserInputSystem : ComponentSystem
         {
             inputData.Move = _moveInput;
             inputData.Shoot = _shootInput;
+            inputData.Pause = _pouseInput;
             inputData.Reload = _reloadInput;
         });
     }

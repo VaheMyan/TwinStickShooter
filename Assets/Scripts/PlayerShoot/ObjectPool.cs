@@ -9,7 +9,7 @@ public class ObjectPool : MonoBehaviour
     public GameObject objectToPool;
     public int amountToPool;
 
-    public GameObject poolRoot;
+    private GameObject poolRoot;
 
     private void Awake()
     {

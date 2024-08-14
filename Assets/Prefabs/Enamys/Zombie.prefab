@@ -2133,6 +2133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 50
   _currenthealth: 0
+  givePlayerScore: 25
   healthBar: {fileID: 7531933780556430331}
   zombieAnim: {fileID: 7531933782084481711}
   zombieMove: {fileID: 7531933782084481707}

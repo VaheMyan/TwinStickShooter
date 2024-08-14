@@ -7,11 +7,13 @@ public class ZombieHealth : MonoBehaviour, IConvertGameObjectToEntity
 {
     public int _maxHealth = 10;
     public int _currenthealth;
+    public int givePlayerScore;
     public ZombieHealthBar healthBar;
     public ApplyZombieAnim zombieAnim;
     public ApplyZombieMove zombieMove;
     public GameObject Canvas;
 
+    private GiveBonusAbility giveBonusAbility;
     private GameManager gameManager;
     private Entity _entity;
     private EntityManager _dsManager;
@@ -22,7 +24,10 @@ public class ZombieHealth : MonoBehaviour, IConvertGameObjectToEntity
         _currenthealth = _maxHealth;
         healthBar.SetMaxHealthZombie(_maxHealth);
 
+        giveBonusAbility = GameObject.FindObjectOfType<GiveBonusAbility>();
         gameManager = GameObject.FindObjectOfType<GameManager>();
+
+        giveBonusAbility.CreateKilledZombieCell(gameObject.tag);
     }
     public int Health
     {
@@ -51,6 +56,8 @@ public class ZombieHealth : MonoBehaviour, IConvertGameObjectToEntity
             Canvas.SetActive(false);
             await Task.Delay(100);
 
+            giveBonusAbility.GivePlayerScore(givePlayerScore);
+            giveBonusAbility.UpdateKilledZombiesCout(gameObject.tag);
             _dsManager.DestroyEntity(_entity);
             await Task.Delay(1000);
             gameManager.InstantiatePotion(transform.position);

@@ -8,12 +8,17 @@ public class PlayerHealth : MonoBehaviour, IConvertGameObjectToEntity
     public int _maxHealth = 10;
     public int _currenthealth;
 
+    private GiveBonusAbility giveBonusAbility;
+    private GameManager gameManager;
     private HealthBar healthBar;
     private Entity _entity;
     private EntityManager _dsManager;
 
     private void Start()
     {
+        giveBonusAbility = GameObject.FindObjectOfType<GiveBonusAbility>();
+        gameManager = GameObject.FindObjectOfType<GameManager>();
+        //deathBonusesPanel = GameObject.FindGameObjectWithTag("BonusesPanel");
         healthBar = FindObjectOfType<HealthBar>();
 
         _currenthealth = _maxHealth;
@@ -38,11 +43,10 @@ public class PlayerHealth : MonoBehaviour, IConvertGameObjectToEntity
     {
         if (_entity != Entity.Null && _dsManager != null)
         {
-            await Task.Delay(410);
-            _dsManager.DestroyEntity(_entity);
-            await Task.Delay(410);
-
-            SceneManager.LoadScene(0);
+            await Task.Delay(100);
+            gameManager.GiveCoin(100);
+            giveBonusAbility.UpdateBonusesPanel(100);
+            Time.timeScale = 0f;
         }
         else
         {

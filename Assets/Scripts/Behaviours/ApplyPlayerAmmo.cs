@@ -13,6 +13,7 @@ public class ApplyPlayerAmmo : MonoBehaviour
 {
     public Gun[] Guns;
 
+    [HideInInspector] public int spentBullets;
     private Text bulletCout;
     private ApplyReload applyReload;
     private ShootAbility shootAbility;
@@ -25,6 +26,7 @@ public class ApplyPlayerAmmo : MonoBehaviour
         shootAbility = GetComponent<ShootAbility>();
 
         SetGunBullets(0);
+        spentBullets = 0;
     }
 
     public void CheckGunBullets(int i)
@@ -32,6 +34,7 @@ public class ApplyPlayerAmmo : MonoBehaviour
         if (Guns[i].bulletsInClip > 0)
         {
             Guns[i].bulletsInClip -= 1;
+            spentBullets++;
             UpdateBulletCoutText();
         }
         if (Guns[i].bulletsInClip < 30) // Reload

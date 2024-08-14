@@ -13,6 +13,10 @@ TagManager:
   - TimerText
   - Bullet
   - MedBox
+  - ZombieArrow
+  - SmallZombie
+  - CoinText
+  - BonusesPanel
   layers:
   - Default
   - TransparentFX

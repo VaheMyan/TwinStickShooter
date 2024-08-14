@@ -12,12 +12,33 @@ public class Cell
     public Image UIImages;
     public Text TimerText;
 }
+[System.Serializable]
+public class KilledZombie
+{
+    public string ZombieTag;
+    public int KilledZombieCout;
+}
+[System.Serializable]
+public class BonusesText
+{
+    public string TextType;
+    public Text Cout;
+}
 public class GiveBonusAbility : MonoBehaviour
 {
+    public int currentScore = 0;
+    public Text scoreText;
+
     private List<Action> actions = new List<Action>();
     public Cell[] cells = new Cell[4];
+    public List<KilledZombie> killedZombies = new List<KilledZombie>();
 
+    public BonusesText[] BonusesTexts = new BonusesText[6];
+    public GameObject DeathBonusesPanel;
+
+    private GameManager gameManger;
     private ApplyPlayerState playerState;
+    private ApplyPlayerAmmo playerAmmo;
     private ApplyPlayerAnimDirection playerAnimDirection;
     public List<ApplyShoot> applyShoot = new List<ApplyShoot>();
     private ShootAbility shootAbility;
@@ -25,6 +46,8 @@ public class GiveBonusAbility : MonoBehaviour
 
     private void Start()
     {
+        playerAmmo = GameObject.FindObjectOfType<ApplyPlayerAmmo>();
+        gameManger = GameObject.FindObjectOfType<GameManager>();
         playerState = GameObject.Find("GameManager").GetComponent<ApplyPlayerState>();
         playerAnimDirection = GameObject.FindObjectOfType<ApplyPlayerAnimDirection>();
         shootAbility = GameObject.FindObjectOfType<ShootAbility>();
@@ -33,7 +56,66 @@ public class GiveBonusAbility : MonoBehaviour
         actions.Add(SpeedBonus);
         actions.Add(DamageBonus);
         actions.Add(WeaponBonus);
+
+        //Score
+        GivePlayerScore(1);
     }
+
+    //Update Bonuses Panel
+    public void UpdateBonusesPanel(int _coins)
+    {
+        DeathBonusesPanel.SetActive(true);
+
+        BonusesTexts[0].Cout.text = currentScore.ToString();
+        for (int i = 0; i < BonusesTexts.Length; i++)
+        {
+            foreach (var killedZombie in killedZombies)
+            {
+                if (killedZombie.ZombieTag == BonusesTexts[i].TextType)
+                {
+                    BonusesTexts[i].Cout.text = killedZombie.KilledZombieCout.ToString();
+                }
+            }
+        }
+        BonusesTexts[4].Cout.text = _coins.ToString();
+        BonusesTexts[5].Cout.text = playerAmmo.spentBullets.ToString();
+
+        scoreText = null;
+    }
+    //KilldeZombie
+    public void UpdateKilledZombiesCout(string _zombieTag)
+    {
+        foreach (var killedZombie in killedZombies)
+        {
+            if (killedZombie.ZombieTag == _zombieTag)
+            {
+                killedZombie.KilledZombieCout++;
+            }
+        }
+    }
+    public void CreateKilledZombieCell(string _zombieTag)
+    {
+        foreach (var killedZombie in killedZombies)
+        {
+            if (killedZombie.ZombieTag == _zombieTag)
+            {
+                return;
+            }
+        }
+        killedZombies.Add(new KilledZombie { ZombieTag = _zombieTag, KilledZombieCout = 0 });
+    }
+
+    //Score
+    public async void GivePlayerScore(int score)
+    {
+        if (scoreText == null) return;
+        currentScore += score;
+        scoreText.text = currentScore.ToString();
+
+        await Task.Delay(500);
+        GivePlayerScore(1);
+    }
+
     public void GiveBonus(int _bonusIndex, Sprite _itemSprite, float _duration)
     {
         foreach (var cell in cells)

@@ -74,7 +74,7 @@ public class ApplyShoot : MonoBehaviour, IAbilityBullet
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Zombie")
+        if (other.tag == "Zombie" || other.tag == "ZombieArrow" || other.tag == "SmallZombie")
         {
             if (isBonusBulletDamage)
             {

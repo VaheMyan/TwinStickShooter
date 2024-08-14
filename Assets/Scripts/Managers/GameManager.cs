@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Event
@@ -12,11 +13,26 @@ public class Event
 
 public class GameManager : MonoBehaviour
 {
+    public int Coins;
     public Event[] Events;
     public Transform[] SpawnPoints;
 
     public GameObject[] Potions = new GameObject[5];
 
+    private MainMenu mainMenu;
+
+    private void Start()
+    {
+        Coins = PlayerPrefs.GetInt("PlayerCoins");
+        mainMenu = GameObject.FindObjectOfType<MainMenu>();
+
+        SetWave(Events[0]);
+    }
+    public void GiveCoin(int _coin)
+    {
+        Coins += _coin;
+        PlayerPrefs.SetInt("PlayerCoins", Coins);
+    }
     private GameObject Potion()
     {
         int probability = Random.Range(0, 3);
@@ -36,10 +52,6 @@ public class GameManager : MonoBehaviour
 
         if (potion.tag == "MedBox") Instantiate(potion, new Vector3(_zombiePosition.x, potion.transform.position.y, _zombiePosition.z), Quaternion.identity);
         else Instantiate(potion, new Vector3(_zombiePosition.x, potion.transform.position.y, _zombiePosition.z), Quaternion.Euler(-90, 0, 0));
-    }
-    private void Start()
-    {
-        SetWave(Events[0]);
     }
 
     private void SetWave(Event _event)

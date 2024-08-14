@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 2417341866134926414}
   m_Layer: 0
   m_Name: SmallZombie
-  m_TagString: Zombie
+  m_TagString: SmallZombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -473,6 +473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 10
   _currenthealth: 0
+  givePlayerScore: 10
   healthBar: {fileID: 3325716695299967381}
   zombieAnim: {fileID: 7548894858665163875}
   zombieMove: {fileID: 447647531259622225}

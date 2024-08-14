@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 [System.Serializable]
 public class Sound
@@ -88,7 +89,7 @@ public class AudioManager : MonoBehaviour
         if (!isActiveSFX) return;
         AkSoundEngine.SetRTPCValue("SFXVolume", volume);
     }
-    private float ToFloat(bool value)
+    public float ToFloat(bool value)
     {
         return value ? 1.0f : 0.0f;
     }

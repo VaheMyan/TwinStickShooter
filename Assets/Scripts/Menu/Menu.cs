@@ -17,6 +17,7 @@ public class Menu : MonoBehaviour
 
     //Game
     [SerializeField] private GameObject _pauseMenu;
+    [SerializeField] private bool isPause = false;
 
     private void Start()
     {
@@ -27,6 +28,7 @@ public class Menu : MonoBehaviour
     public void PlayGame()
     {
         SceneManager.LoadScene(1);
+        Debug.Log(SceneManager.GetActiveScene());
     }
     public void QuiteGame()
     {
@@ -48,8 +50,9 @@ public class Menu : MonoBehaviour
     }
     public void Pause()
     {
-        Time.timeScale = 0f;
-        _pauseMenu.SetActive(true);
+        Time.timeScale = AudioManager.Instance.ToFloat(isPause);
+        _pauseMenu.SetActive(!isPause);
+        isPause = !isPause;
     }
     public void Continue()
     {
@@ -70,10 +73,9 @@ public class Menu : MonoBehaviour
         entityManager.DestroyEntity(entityManager.UniversalQuery);
         _pauseMenu.SetActive(false);
         SceneManager.LoadScene(0);
+
         Time.timeScale = 1f;
     }
-
-
 
     //Music
     public void ToggleMusic() // Off On
