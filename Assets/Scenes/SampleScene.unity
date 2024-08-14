@@ -327,7 +327,7 @@ MonoBehaviour:
   Events:
   - enamys:
     - {fileID: 2580828245782198953, guid: 61a2d9ded32b1004abd509717c2e1fb2, type: 3}
-    countEnemies: 0
+    countEnemies: 1
   SpawnPoints:
   - {fileID: 496803991}
   - {fileID: 1859062022}
