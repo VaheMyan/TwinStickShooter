@@ -28,7 +28,6 @@ public class Menu : MonoBehaviour
     public void PlayGame()
     {
         SceneManager.LoadScene(1);
-        Debug.Log(SceneManager.GetActiveScene());
     }
     public void QuiteGame()
     {
@@ -50,9 +49,13 @@ public class Menu : MonoBehaviour
     }
     public void Pause()
     {
-        Time.timeScale = AudioManager.Instance.ToFloat(isPause);
+        Time.timeScale = ToFloat(isPause);
         _pauseMenu.SetActive(!isPause);
         isPause = !isPause;
+    }
+    private float ToFloat(bool value)
+    {
+        return value ? 1.0f : 0.0f;
     }
     public void Continue()
     {

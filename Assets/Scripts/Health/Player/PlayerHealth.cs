@@ -26,6 +26,10 @@ public class PlayerHealth : MonoBehaviour, IConvertGameObjectToEntity
 
         //aimWeapon = GetComponent<ApplyAimWeapon>();
     }
+    public int Value()
+    {
+        return _maxHealth / 17;
+    }
     public int Health
     {
         get => _currenthealth;
@@ -67,9 +71,11 @@ public class PlayerHealth : MonoBehaviour, IConvertGameObjectToEntity
         if ((_currenthealth + benefit) > _maxHealth)
         {
             _currenthealth = _maxHealth;
+            healthBar.SetHealth(_currenthealth);
             return;
         }
         _currenthealth += benefit;
+        healthBar.SetHealth(_currenthealth);
     }
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)

@@ -20,9 +20,9 @@ public class ApplyShoot : MonoBehaviour, IAbilityBullet
 
     public TrailRenderer trailRenderer;
 
-    private void Awake()
+    private void Start()
     {
-        player = GameObject.Find("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
         var applyShootActions = player.GetComponent<UserInputData>().ApplyShootActions;
         trailRenderer = GetComponentInChildren<TrailRenderer>();
         applyShootActions.Add(this);

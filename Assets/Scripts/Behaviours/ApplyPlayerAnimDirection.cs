@@ -16,6 +16,10 @@ public class ApplyPlayerAnimDirection : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
+    public float Value()
+    {
+        return speed * 2;
+    }
     public void Execute(float horizontal, float vertical)
     {
         //Bounse

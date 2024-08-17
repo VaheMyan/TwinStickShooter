@@ -12,6 +12,7 @@ public class PlayerPauseSystem : ComponentSystem
     }
     protected override void OnUpdate()
     {
+        Debug.Log("aaaaaa");
         Entities.With(_pauseQuery).ForEach((Entity entity, ref InputData input, Menu menu) =>
         {
             if (input.Pause == 1f)

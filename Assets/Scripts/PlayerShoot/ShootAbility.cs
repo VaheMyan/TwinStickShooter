@@ -20,6 +20,10 @@ public class ShootAbility : MonoBehaviour, IAbility, IAbilityTarget
     private ApplyPlayerAmmo applyPlayerAmmo;
     private float _shootTime = float.MinValue;
 
+    public float Value()
+    {
+        return shootDelay * 30;
+    }
     public void CanShoot(int value)
     {
         isShooting = (value != 0);

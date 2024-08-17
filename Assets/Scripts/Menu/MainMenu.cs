@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
     public Text coinText;
 
     //Menu
+    [SerializeField] private GameObject _playerSelectMenu;
     [SerializeField] private GameObject _settingsMenu;
     [SerializeField] private GameObject _mainMenu;
     [SerializeField] private Slider _musicSlider;
@@ -38,7 +39,8 @@ public class MainMenu : MonoBehaviour
     }
     public void SelectPlayer()
     {
-
+        _mainMenu.SetActive(false);
+        _playerSelectMenu.SetActive(true);
     }
     public void Settings()
     {
@@ -48,6 +50,11 @@ public class MainMenu : MonoBehaviour
     public void BackToMainMenu()
     {
         _settingsMenu.SetActive(false);
+        _mainMenu.SetActive(true);
+    }
+    public void BackToMainMenuFromPlayerSelection()
+    {
+        _playerSelectMenu.SetActive(false);
         _mainMenu.SetActive(true);
     }
     public void Reset()

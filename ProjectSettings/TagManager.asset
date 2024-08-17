@@ -17,6 +17,10 @@ TagManager:
   - SmallZombie
   - CoinText
   - BonusesPanel
+  - HealthSlider
+  - SpeedSlider
+  - ShootSpeedSlider
+  - TimeSlider
   layers:
   - Default
   - TransparentFX

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,17 +17,20 @@ public class GameManager : MonoBehaviour
     public int Coins;
     public Event[] Events;
     public Transform[] SpawnPoints;
+    public Text waveText;
 
     public GameObject[] Potions = new GameObject[5];
 
-    private MainMenu mainMenu;
+    private List<GameObject> currentZombies = new List<GameObject>();
+    private int waveIndex = 0;
 
     private void Start()
     {
         Coins = PlayerPrefs.GetInt("PlayerCoins");
-        mainMenu = GameObject.FindObjectOfType<MainMenu>();
 
-        SetWave(Events[0]);
+        SetWave(Events[waveIndex], waveIndex);
+        waveText.text = waveIndex.ToString();
+        CheckZombieCount();
     }
     public void GiveCoin(int _coin)
     {
@@ -54,15 +58,31 @@ public class GameManager : MonoBehaviour
         else Instantiate(potion, new Vector3(_zombiePosition.x, potion.transform.position.y, _zombiePosition.z), Quaternion.Euler(-90, 0, 0));
     }
 
-    private void SetWave(Event _event)
+    private void SetWave(Event _event, int index)
     {
         for (int i = 0; i < _event.countEnemies; i++)
         {
             GameObject enamyPrefab = _event.enamys[Random.Range(0, _event.enamys.Length)];
-            //ConvertToEntity convertToEntity = enamyPrefab.AddComponent<ConvertToEntity>();
-            //convertToEntity.ConversionMode = ConvertToEntity.Mode.ConvertAndDestroy;
 
-            var enamy = Instantiate(enamyPrefab, SpawnPoints[0]);
+            var enamy = Instantiate(enamyPrefab, SpawnPoints[index]);
+            currentZombies.Add(enamy);
         }
+    }
+    private async void CheckZombieCount()
+    {
+        foreach (var zombie in currentZombies)
+        {
+            if (zombie != null)
+            {
+                await Task.Delay(100);
+                CheckZombieCount();
+                return;
+            }
+        }
+        waveIndex++;
+        SetWave(Events[waveIndex], waveIndex);
+        waveText.text = waveIndex.ToString();
+        await Task.Delay(100);
+        CheckZombieCount();
     }
 }
