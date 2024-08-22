@@ -12,11 +12,11 @@ public class ApplyZombieAnim : MonoBehaviour
     public string DeathAnimHash;
 
     [HideInInspector] public float walkAnimSpeed;
-    [HideInInspector] public Animator animator;
+    public Animator animator;
 
     private List<string> anims = new List<string>();
 
-    private void Start()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
 

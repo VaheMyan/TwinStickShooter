@@ -1,9 +1,7 @@
 using UnityEngine;
-using Unity.Entities;
 using System.Threading.Tasks;
-using UnityEngine.SceneManagement;
 
-public class ZombieHealth : MonoBehaviour, IConvertGameObjectToEntity
+public class ZombieHealth : MonoBehaviour
 {
     public int _maxHealth = 10;
     public int _currenthealth;
@@ -15,8 +13,6 @@ public class ZombieHealth : MonoBehaviour, IConvertGameObjectToEntity
 
     private GiveBonusAbility giveBonusAbility;
     private GameManager gameManager;
-    private Entity _entity;
-    private EntityManager _dsManager;
     private bool isDeathing = false;
 
     private void Start()
@@ -44,7 +40,7 @@ public class ZombieHealth : MonoBehaviour, IConvertGameObjectToEntity
     }
     public async void Die()
     {
-        if (_entity != Entity.Null && _dsManager != null && isDeathing == false)
+        if (isDeathing == false)
         {
             isDeathing = true;
 
@@ -58,7 +54,6 @@ public class ZombieHealth : MonoBehaviour, IConvertGameObjectToEntity
 
             giveBonusAbility.GivePlayerScore(givePlayerScore);
             giveBonusAbility.UpdateKilledZombiesCout(gameObject.tag);
-            _dsManager.DestroyEntity(_entity);
             await Task.Delay(1000);
             gameManager.InstantiatePotion(transform.position);
             if (this != null) Destroy(gameObject);
@@ -76,11 +71,5 @@ public class ZombieHealth : MonoBehaviour, IConvertGameObjectToEntity
     public void GiveBenefitZombie(int benefit)
     {
         _currenthealth += benefit;
-    }
-
-    public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
-    {
-        _entity = entity;
-        _dsManager = dstManager;
     }
 }

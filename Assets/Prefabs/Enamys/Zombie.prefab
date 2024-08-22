@@ -1963,10 +1963,8 @@ GameObject:
   - component: {fileID: 8891249250539905257}
   - component: {fileID: 3279813229980580499}
   - component: {fileID: 7531933782084481701}
-  - component: {fileID: 7531933782084481705}
   - component: {fileID: 7531933782084481704}
   - component: {fileID: 7531933782084481707}
-  - component: {fileID: 7531933782084481708}
   - component: {fileID: 7531933782084481711}
   - component: {fileID: 7531933782084481699}
   - component: {fileID: 7531933782084481700}
@@ -2031,20 +2029,6 @@ CapsuleCollider:
   m_Height: 1.82
   m_Direction: 1
   m_Center: {x: 0, y: 0.91, z: 0.06}
---- !u!114 &7531933782084481705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8083891758990359123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2abe874e3037a34e9f1fa02f55aa613, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  behaviours:
-  - {fileID: 7531933782084481707}
 --- !u!195 &7531933782084481704
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2082,23 +2066,10 @@ MonoBehaviour:
   isBoosted: 0
   MoveSpeed: 3
   AttackDistance: 2
-  WalkkDistance: 12
+  WalkkDistance: 50
   targetTransform: {fileID: 0}
   isAttack: 0
   isDamaging: 0
---- !u!114 &7531933782084481708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8083891758990359123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConversionMode: 1
 --- !u!114 &7531933782084481711
 MonoBehaviour:
   m_ObjectHideFlags: 0

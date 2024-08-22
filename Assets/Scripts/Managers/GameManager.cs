@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Entities;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
     {
         Coins = PlayerPrefs.GetInt("PlayerCoins");
 
+        waveIndex = 0;
         SetWave(Events[waveIndex], waveIndex);
         waveText.text = waveIndex.ToString();
         CheckZombieCount();
@@ -79,10 +81,16 @@ public class GameManager : MonoBehaviour
                 return;
             }
         }
+
         waveIndex++;
         SetWave(Events[waveIndex], waveIndex);
+        if (waveText == null)
+        {
+            CheckZombieCount();
+            return;
+        }
         waveText.text = waveIndex.ToString();
-        await Task.Delay(100);
+        await Task.Delay(500);
         CheckZombieCount();
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,7 +11,7 @@ public class ApplyZombieMove : MonoBehaviour, IBehaviour
     public float AttackDistance = 2f;
     public float WalkkDistance = 12f;
     public Transform targetTransform;
-    [HideInInspector] public bool isAttack = false;
+    public bool isAttack = false;
     [HideInInspector] public bool isDamaging = false;
     private NavMeshAgent navMeshAgent;
     private ApplyZombieAnim zombieAnim;
@@ -20,6 +21,17 @@ public class ApplyZombieMove : MonoBehaviour, IBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         zombieAnim = GetComponent<ApplyZombieAnim>();
         targetTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
+        UpdateMove();
+    }
+    private async void UpdateMove()
+    {
+        while (true)
+        {
+            Behaviour();
+            Evaluate();
+            await Task.Delay(50);
+        }
     }
     public float Evaluate()
     {
@@ -29,10 +41,10 @@ public class ApplyZombieMove : MonoBehaviour, IBehaviour
     public void Behaviour()
     {
         if (targetTransform == null) return;
-
+        SetZombieRotation(targetTransform, 100);
         if (isBoosted)
         {
-            if (Vector3.Distance(targetTransform.position, transform.position) < 15f && Vector3.Distance(targetTransform.position, transform.position) > 9.8f && !isAttack)
+            if (Vector3.Distance(targetTransform.position, transform.position) > 9.8f && !isAttack)
             {
                 MoveToTarget(_speed: 2, _targetPosition: targetTransform.position);
 
@@ -73,13 +85,12 @@ public class ApplyZombieMove : MonoBehaviour, IBehaviour
                 //Animacion
                 zombieAnim.ApplyAnim(zombieAnim.AttackAnimHash, true);
             }
-            else
-            {
-                MoveToTarget(_speed: MoveSpeed, _targetPosition: -targetTransform.position);
-
-                //Animacion
-                zombieAnim.ApplyAnim(zombieAnim.WalkAnimHash, true, -zombieAnim.walkAnimSpeed);
-            }
+            //else
+            //{
+            //    MoveToTarget(_speed: MoveSpeed, _targetPosition: -targetTransform.position);
+            //    //Animacion
+            //    zombieAnim.ApplyAnim(zombieAnim.WalkAnimHash, true, -zombieAnim.walkAnimSpeed);
+            //}
         }
         else if (targetTransform == null)
         {
@@ -94,10 +105,6 @@ public class ApplyZombieMove : MonoBehaviour, IBehaviour
     private void MoveToTarget(float _speed, Vector3 _targetPosition)
     {
         SetZombieRotation(targetTransform, 10);
-
-        //Zombie Arrow
-        AnimatorStateInfo stateInfo = zombieAnim.animator.GetCurrentAnimatorStateInfo(0);
-        if (stateInfo.IsName("AttackZombieArrow")) return;
 
         navMeshAgent.speed = _speed;
         navMeshAgent.destination = _targetPosition;

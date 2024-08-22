@@ -20,7 +20,7 @@ TagManager:
   - HealthSlider
   - SpeedSlider
   - ShootSpeedSlider
-  - TimeSlider
+  - Barrier
   layers:
   - Default
   - TransparentFX

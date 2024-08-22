@@ -1140,9 +1140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3291822047817783651}
   - component: {fileID: 8885261639965180697}
-  - component: {fileID: 2594047104527641648}
   - component: {fileID: 2594047104527641649}
-  - component: {fileID: 2594047104527641650}
   - component: {fileID: 2594047104527641651}
   - component: {fileID: 2594047104527641652}
   - component: {fileID: 2594047104527641653}
@@ -1196,19 +1194,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!114 &2594047104527641648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2802705831446578137}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConversionMode: 1
 --- !u!136 &2594047104527641649
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1223,20 +1208,6 @@ CapsuleCollider:
   m_Height: 3.61
   m_Direction: 1
   m_Center: {x: 0, y: 1.81, z: 0}
---- !u!114 &2594047104527641650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2802705831446578137}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2abe874e3037a34e9f1fa02f55aa613, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  behaviours:
-  - {fileID: 2594047104527641651}
 --- !u!114 &2594047104527641651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1252,7 +1223,7 @@ MonoBehaviour:
   isBoosted: 0
   MoveSpeed: 2
   AttackDistance: 12
-  WalkkDistance: 16
+  WalkkDistance: 50
   targetTransform: {fileID: 0}
   isAttack: 0
   isDamaging: 0

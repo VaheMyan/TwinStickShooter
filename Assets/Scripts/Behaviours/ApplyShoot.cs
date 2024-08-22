@@ -78,7 +78,7 @@ public class ApplyShoot : MonoBehaviour, IAbilityBullet
         {
             if (isBonusBulletDamage)
             {
-                BulletDamage = 5;
+                BulletDamage = 10;
 
             }
             else
@@ -87,6 +87,10 @@ public class ApplyShoot : MonoBehaviour, IAbilityBullet
             }
             other.GetComponent<ApplyZombieState>().TakeZombieDamage(BulletDamage);
             isDamaging = true;
+        }
+        else if (other.tag == "Barrier")
+        {
+            DestroyBulletFroSeconds(0);
         }
     }
 
