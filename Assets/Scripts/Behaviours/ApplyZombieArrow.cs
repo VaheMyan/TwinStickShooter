@@ -1,7 +1,9 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ApplyZombieArrow : MonoBehaviour, IArrow
 {
@@ -48,8 +50,14 @@ public class ApplyZombieArrow : MonoBehaviour, IArrow
         {
             isStartDestroy = true;
             await Task.Delay(seconds);
-            if (this != null)
+            if (this != null && SceneManager.GetActiveScene().buildIndex == 1)
             {
+                Destroy(this.gameObject);
+                isDamaging = false;
+            }
+            else if (this != null && SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                //PhotonNetwork.
                 Destroy(this.gameObject);
                 isDamaging = false;
             }
@@ -62,8 +70,14 @@ public class ApplyZombieArrow : MonoBehaviour, IArrow
         {
             isStartDestroForTwoSeconds = true;
             await Task.Delay(2000);
-            if (this != null)
+            if (this != null && SceneManager.GetActiveScene().buildIndex == 1)
             {
+                Destroy(this.gameObject);
+                isDamaging = false;
+            }
+            else if (this != null && SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                //PhotonNetwork.
                 Destroy(this.gameObject);
                 isDamaging = false;
             }

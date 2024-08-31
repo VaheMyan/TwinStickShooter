@@ -1,12 +1,8 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
-using Unity.Transforms;
 
-public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
+public class UserInputData : MonoBehaviour
 {
     public List<MonoBehaviour> ApplyShootActions = new List<MonoBehaviour>();
     public MonoBehaviour ShootAction;
@@ -25,72 +21,28 @@ public class UserInputData : MonoBehaviour, IConvertGameObjectToEntity
     public string reloadAnimHash;
     public string dieAnimHash;
 
+    [HideInInspector] public InputData inputData = new InputData();
+    [HideInInspector] public MoveData moveData = new MoveData();
+    [HideInInspector] public ShootData shootData = new ShootData();
+    [HideInInspector] public AimData aimData = new AimData();
+    [HideInInspector] public RunData runData = new RunData();
     [HideInInspector] public bool isTestRun;
 
     private void Start()
     {
-        Application.targetFrameRate = 120;
+        Application.targetFrameRate = 60;
 
         billboards = GameObject.FindObjectsOfType<Billboard>();
         foreach (var billboard in billboards)
         {
             BillboardActions.Add(billboard);
         }
-    }
 
-    public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
-    {
-        dstManager.AddComponentData(entity, new InputData());
-
-        dstManager.AddComponentData(entity, new MoveData
-        {
-            Speed = speed / 1000
-
-        });
-
-        if (ShootAction != null && ShootAction is IAbility)
-        {
-            dstManager.AddComponentData(entity, new ShootData());
-        }
-        if (AimAction != null && AimAction is IAbility)
-        {
-            dstManager.AddComponentData(entity, new AimData());
-        }
-
-        dstManager.AddComponentData(entity, new RunData
-        {
-            _runSpeed = runSpeed,
-            _speed = speed,
-            _isTestRun = isTestRun
-        });
-
-        if (AmmoAction != null && AmmoAction is IAbility)
-        {
-            dstManager.AddComponentData(entity, new ChangeMaterialData());
-        }
-
-        if (moveAnimHash != String.Empty)
-        {
-            dstManager.AddComponentData(entity, new MoveAnimData());
-        }
-        if (shootAnimHash != String.Empty)
-        {
-            dstManager.AddComponentData(entity, new AttackAnimData());
-        }
-        if (reloadAnimHash != String.Empty)
-        {
-            dstManager.AddComponentData(entity, new ReloadHitAnimData());
-        }
-        if (dieAnimHash != String.Empty)
-        {
-            dstManager.AddComponentData(entity, new DieAnimData());
-        }
+        runData = new RunData { _runSpeed = runSpeed, _speed = speed, _isTestRun = isTestRun };
     }
 }
 
-
-// Components
-public struct InputData : IComponentData
+public struct InputData
 {
     public float2 Move;
     public float Shoot;
@@ -100,44 +52,23 @@ public struct InputData : IComponentData
     public int CollideInput;
 }
 
-public struct MoveData : IComponentData
+public struct MoveData
 {
     public float Speed;
 }
 
-public struct ShootData : IComponentData
+public struct ShootData
 {
 
 }
-public struct AimData : IComponentData
+public struct AimData
 {
 
 }
 
-public struct RunData : IComponentData
+public struct RunData
 {
     public float _runSpeed;
     public float _speed;
     public bool _isTestRun;
-}
-
-public struct ChangeMaterialData : IComponentData
-{
-    public int isDissolve;
-}
-public struct MoveAnimData : IComponentData
-{
-
-}
-public struct AttackAnimData : IComponentData
-{
-
-}
-public struct ReloadHitAnimData : IComponentData
-{
-
-}
-public struct DieAnimData : IComponentData
-{
-
 }

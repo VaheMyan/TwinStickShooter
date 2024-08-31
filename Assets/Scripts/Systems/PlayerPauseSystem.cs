@@ -1,32 +1,53 @@
 using UnityEngine;
-using Unity.Entities;
+using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
+using Photon.Pun;
 
-public class PlayerPauseSystem : ComponentSystem
+public class PlayerPauseSystem : MonoBehaviour
 {
-    private bool canCall = true;
-    private EntityQuery _pauseQuery;
+    private UserInputData userInputData;
+    private Menu menu;
 
-    protected override void OnCreate()
+    private void Start()
     {
-        _pauseQuery = GetEntityQuery(ComponentType.ReadOnly<ApplyReload>(), ComponentType.ReadOnly<Menu>());
-    }
-    protected override void OnUpdate()
-    {
-        Debug.Log("aaaaaa");
-        Entities.With(_pauseQuery).ForEach((Entity entity, ref InputData input, Menu menu) =>
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            if (input.Pause == 1f)
+            userInputData = GameObject.FindObjectOfType<UserInputData>();
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            FindPlayer();
+        }
+
+        menu = GetComponent<Menu>();
+
+        if (userInputData == null) return;
+        OnUpdate();
+    }
+    private async void OnUpdate()
+    {
+        while (true)
+        {
+            if (this == null) return;
+
+            if (userInputData.inputData.Pause == 1f && PhotonView.Get(this.gameObject).IsMine)
             {
-                if (canCall == false) return;
                 menu.Pause();
-                canCall = false;
             }
-            else
-            {
-                canCall = true;
-            }
-        });
+
+            await Task.Delay(200);
+        }
     }
 
-
+    private async void FindPlayer()
+    {
+        //Multiplayer
+        while (userInputData == null)
+        {
+            await Task.Delay(1500);
+            userInputData = GameObject.FindObjectOfType<UserInputData>();
+        }
+        OnUpdate();
+        return;
+    }
 }

@@ -14,9 +14,11 @@ public class Billboard : MonoBehaviour
     }
     public async void PerUpdate()
     {
-        if (this == null) return;
-        transform.LookAt(transform.position + cameraMain.forward);
-        await Task.Delay(20);
-        PerUpdate();
+        while (true)
+        {
+            if (this == null) return;
+            transform.LookAt(transform.position + cameraMain.forward);
+            await Task.Delay(10);
+        }
     }
 }

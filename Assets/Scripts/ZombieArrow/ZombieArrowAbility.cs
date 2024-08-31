@@ -1,6 +1,8 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ZombieArrowAbility : MonoBehaviour
 {
@@ -21,6 +23,18 @@ public class ZombieArrowAbility : MonoBehaviour
         currentArrow = Instantiate(Arrow, RightHend.transform);
         currentZombieArrow = currentArrow.GetComponent<ApplyZombieArrow>();
         currentZombieArrow.applyPlayerDamage = playerDamage;
+
+        //if (SceneManager.GetActiveScene().buildIndex == 1)
+        //{
+
+        //}
+        //else if (SceneManager.GetActiveScene().buildIndex == 2)
+        //{
+        //    currentArrow = PhotonNetwork.Instantiate(Arrow.name, RightHend.transform.position, RightHend.transform.rotation);
+        //    currentArrow.transform.SetParent(RightHend.transform);
+        //    currentZombieArrow = currentArrow.GetComponent<ApplyZombieArrow>();
+        //    currentZombieArrow.applyPlayerDamage = playerDamage;
+        //}
     }
     public void StartArrowMove()
     {

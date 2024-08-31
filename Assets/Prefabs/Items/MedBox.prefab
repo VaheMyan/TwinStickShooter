@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8749584398546480849}
   - component: {fileID: 8720323163175453671}
   - component: {fileID: 8732409247843182921}
+  - component: {fileID: -3378702524538465262}
   - component: {fileID: 8761169003171155959}
-  - component: {fileID: 65834003888881035}
   - component: {fileID: -49898102802276144}
   m_Layer: 0
   m_Name: MedBox
@@ -86,6 +86,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &-3378702524538465262
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8753337910646235605}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1888b07a07d0de042ada13cc77936efa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!65 &8761169003171155959
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -99,22 +119,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.30084234, y: 0.089999996, z: 0.15219232}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!111 &65834003888881035
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8753337910646235605}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 6e46df8df9f602442bffbc583deeb162, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 6e46df8df9f602442bffbc583deeb162, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &-49898102802276144
 MonoBehaviour:
   m_ObjectHideFlags: 0

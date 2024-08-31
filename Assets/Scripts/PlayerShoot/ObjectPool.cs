@@ -1,6 +1,8 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ObjectPool : MonoBehaviour
 {
@@ -23,9 +25,19 @@ public class ObjectPool : MonoBehaviour
         GameObject tmp;
         for (int i = 0; i < amountToPool; i++)
         {
-            tmp = Instantiate(objectToPool, poolRoot.transform);
-            tmp.SetActive(false);
-            pooledObjects.Add(tmp);
+            if (SceneManager.GetActiveScene().buildIndex == 1)
+            {
+                tmp = Instantiate(objectToPool, poolRoot.transform);
+                tmp.SetActive(false);
+                pooledObjects.Add(tmp);
+            }
+            else if (SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                tmp = PhotonNetwork.Instantiate(objectToPool.name, poolRoot.transform.position, Quaternion.identity);
+                tmp.transform.SetParent(poolRoot.transform);
+                tmp.SetActive(false);
+                pooledObjects.Add(tmp);
+            }
         }
     }
     private GameObject GetPooledObject()

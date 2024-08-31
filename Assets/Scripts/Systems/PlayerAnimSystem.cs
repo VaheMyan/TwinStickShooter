@@ -1,60 +1,72 @@
 using System;
-using Unity.Entities;
-using Unity.Mathematics;
-using Unity.Transforms;
+using System.Threading.Tasks;
 using UnityEngine;
+using Photon.Pun;
+using UnityEngine.SceneManagement;
 
-public class PlayerAnimSystem : ComponentSystem
+public class PlayerAnimSystem : MonoBehaviour
 {
-    private EntityQuery _query;
-    protected override void OnCreate()
+    private UserInputData userInputData;
+    private ApplyPlayerAnimDirection playerAnimDirection;
+    private AimAbility aimAbility;
+    private PlayerHealth playerHealth;
+    private ShootAbility shootAbility;
+    private Animator animator;
+
+    private void Start()
     {
-        _query = GetEntityQuery(ComponentType.ReadOnly<Animator>(), ComponentType.ReadOnly<InputData>(),
-            ComponentType.ReadOnly<ApplyPlayerAnimDirection>(), ComponentType.ReadOnly<ShootAbility>());
+        userInputData = GetComponent<UserInputData>();
+        playerAnimDirection = GetComponent<ApplyPlayerAnimDirection>();
+        aimAbility = GetComponent<AimAbility>();
+        playerHealth = GetComponent<PlayerHealth>();
+        shootAbility = GetComponent<ShootAbility>();
+        animator = GetComponent<Animator>();
+
+        OnUpdate();
     }
-
-    protected override void OnUpdate()
+    private async void OnUpdate()
     {
-        Entities.With(_query).ForEach((Entity entity, ref InputData move, Animator animator, UserInputData inputData,
-            PlayerHealth playerHealth, ApplyPlayerAnimDirection playerAnimDirection, ShootAbility shootAbility) =>
+        while (true)
         {
-            if (animator != null && inputData != null && playerHealth != null)
-            {
-                animator.SetBool(inputData.moveAnimHash, Math.Abs(move.Move.x) > 0.05f || Math.Abs(move.Move.y) > 0.05f); // Walk anim
-                animator.SetBool(inputData.shootAnimHash, Math.Abs(move.Shoot) > 0f && shootAbility.isShooting); // Attack aim
+            if (this == null) return;
 
-                animator.SetBool(inputData.reloadAnimHash, shootAbility.isReload);
+            if (animator != null && userInputData != null && playerHealth != null)
+            {
+                if (SceneManager.GetActiveScene().buildIndex == 2 && !PhotonView.Get(this.gameObject).IsMine) return;
+
+                animator.SetBool(userInputData.moveAnimHash, Math.Abs(userInputData.inputData.Move.x) > 0.05f || Math.Abs(userInputData.inputData.Move.y) > 0.05f); // Walk anim
+                animator.SetBool(userInputData.shootAnimHash, Math.Abs(userInputData.inputData.Shoot) > 0f && shootAbility.isShooting); // Attack aim
+
+                animator.SetBool(userInputData.reloadAnimHash, shootAbility.isReload);
 
 
                 float x = 0;
                 float y = 0;
-                if (move.Move.x < 0)
+                if (userInputData.inputData.Move.x < 0)
                 {
-                    x = -move.Move.x;
+                    x = -userInputData.inputData.Move.x;
                 }
                 else
                 {
-                    x = move.Move.x;
+                    x = userInputData.inputData.Move.x;
                 }
-                if (move.Move.y < 0)
+                if (userInputData.inputData.Move.y < 0)
                 {
-                    y = -move.Move.y;
+                    y = -userInputData.inputData.Move.y;
                 }
                 else
                 {
-                    y = move.Move.y;
+                    y = userInputData.inputData.Move.y;
                 }
                 float result = Mathf.Max(x, y);
 
-                if (inputData.moveAnimSpeedHash == String.Empty) return;
-                animator.SetFloat(inputData.moveAnimSpeedHash, 1.5f * result);
-            }
-            else
-            {
-                Debug.LogError("Problem");
+                if (userInputData.moveAnimSpeedHash == String.Empty) return;
+                animator.SetFloat(userInputData.moveAnimSpeedHash, 1.5f * result);
             }
 
-            playerAnimDirection.Execute(move.Move.x, move.Move.y);
-        });
+            playerAnimDirection.Execute(userInputData.inputData.Move.x, userInputData.inputData.Move.y);
+
+            await Task.Delay(10);
+        }
     }
 }

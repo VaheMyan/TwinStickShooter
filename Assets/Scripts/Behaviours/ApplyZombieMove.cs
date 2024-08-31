@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class ApplyZombieMove : MonoBehaviour, IBehaviour
 {
@@ -11,7 +12,9 @@ public class ApplyZombieMove : MonoBehaviour, IBehaviour
     public float AttackDistance = 2f;
     public float WalkkDistance = 12f;
     public Transform targetTransform;
+    public List<Transform> TargetTransforms;
     public bool isAttack = false;
+
     [HideInInspector] public bool isDamaging = false;
     private NavMeshAgent navMeshAgent;
     private ApplyZombieAnim zombieAnim;
@@ -20,14 +23,47 @@ public class ApplyZombieMove : MonoBehaviour, IBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         zombieAnim = GetComponent<ApplyZombieAnim>();
-        targetTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
-        UpdateMove();
+        //Multiplayer
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            FindPlayer();
+            return;
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            targetTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            UpdateMove();
+        }
     }
     private async void UpdateMove()
     {
         while (true)
         {
+            if (this == null) return;
+            if (transform == null) return;
+
+            if (targetTransform == null && SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                FindNearPlayer();
+                await Task.Delay(50);
+                if (targetTransform == null)
+                {
+                    StandStill();
+                    return;
+                }
+            }
+            else if (targetTransform == null && SceneManager.GetActiveScene().buildIndex == 1)
+            {
+                StandStill();
+                return;
+            }
+
+            if (this == null) return;
+            if (navMeshAgent == null) return;
+            if (!navMeshAgent.isActiveAndEnabled) return;
+
+
             Behaviour();
             Evaluate();
             await Task.Delay(50);
@@ -108,5 +144,44 @@ public class ApplyZombieMove : MonoBehaviour, IBehaviour
 
         navMeshAgent.speed = _speed;
         navMeshAgent.destination = _targetPosition;
+    }
+    private async void FindNearPlayer()
+    {
+        await Task.Delay(10);
+
+        TargetTransforms = PlayerMultiplayerData.Instance.PlayersTransforms;
+
+        float nearPlayerDistance = 1000f;
+        Transform nearPlayerTransform = null;
+        if (TargetTransforms == null || this == null) return;
+        foreach (var target in TargetTransforms)
+        {
+            if (target != null && Vector3.Distance(transform.position, target.position) < nearPlayerDistance)
+            {
+                nearPlayerDistance = Vector3.Distance(transform.position, target.position);
+                nearPlayerTransform = target;
+            }
+        }
+        targetTransform = nearPlayerTransform;
+        UpdateMove();
+    }
+
+    private async void FindPlayer()
+    {
+        TargetTransforms = PlayerMultiplayerData.Instance.PlayersTransforms;
+        //Multiplayer
+        while (true)
+        {
+            await Task.Delay(2000);
+            FindNearPlayer();
+        }
+    }
+    private void StandStill()
+    {
+        if (navMeshAgent == null) return;
+        if (!navMeshAgent.isActiveAndEnabled) return;
+
+        navMeshAgent.destination = navMeshAgent.transform.position;
+        zombieAnim.ApplyAnim(zombieAnim.IdleAnimHash, true);
     }
 }

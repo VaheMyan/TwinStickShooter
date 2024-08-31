@@ -20,6 +20,8 @@ public class PlayerSelectoer : MonoBehaviour
     public PlayerState[] playerStates;
     public StrengthBar[] strengthBars;
 
+    public MainMenu mainMenu;
+
     private void Start()
     {
         selectedPlayer = PlayerPrefs.GetInt("selectedPlayer");
@@ -56,6 +58,6 @@ public class PlayerSelectoer : MonoBehaviour
     public void StartGame()
     {
         PlayerPrefs.SetInt("selectedPlayer", selectedPlayer);
-        SceneManager.LoadScene(1, LoadSceneMode.Single);
+        mainMenu.PlayGame();
     }
 }

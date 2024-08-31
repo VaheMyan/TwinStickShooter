@@ -1225,6 +1225,7 @@ MonoBehaviour:
   AttackDistance: 12
   WalkkDistance: 50
   targetTransform: {fileID: 0}
+  TargetTransforms: []
   isAttack: 0
   isDamaging: 0
 --- !u!195 &2594047104527641652
@@ -1332,7 +1333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ApplyArrowActions: []
   RightHend: {fileID: 1607632237978047338}
-  Arrow: {fileID: 7324977941931005268, guid: 2634fc3d9a1bade4c9bb801e17a7b643, type: 3}
+  Arrow: {fileID: 7324977941931005268, guid: 8aac3ab918076794e8297ac2121caec9, type: 3}
 --- !u!114 &4097755735521209670
 MonoBehaviour:
   m_ObjectHideFlags: 0

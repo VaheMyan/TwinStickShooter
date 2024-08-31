@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public enum ItemType
 {
@@ -39,16 +41,41 @@ public class GiveItemPickUpAbility : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if (isHealth)
+            if (SceneManager.GetActiveScene().buildIndex == 1)
             {
-                GiveBenefit();
+                if (isHealth)
+                {
+                    GiveBenefit();
+                    Destroy(this.gameObject);
+                    return;
+                }
+
+                GiveBonus();
                 Destroy(this.gameObject);
                 return;
             }
+            else if (SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                if (PhotonView.Get(this.gameObject).IsMine && PhotonNetwork.LocalPlayer.IsMasterClient)
+                {
+                    if (isHealth)
+                    {
+                        GiveBenefit();
+                        PhotonNetwork.Destroy(this.gameObject);
+                        return;
+                    }
 
-            GiveBonus();
-            Destroy(this.gameObject);
-            return;
+                    GiveBonus();
+                    PhotonNetwork.Destroy(this.gameObject);
+                    return;
+                }
+                else if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+                {
+                    NetworkManager networkManager = GameObject.FindObjectOfType<NetworkManager>();
+                    networkManager.SendPlayerBonuse((int)other.gameObject.GetComponent<PhotonView>().ViewID);
+                    return;
+                }
+            }
         }
     }
     private void GiveBonus()

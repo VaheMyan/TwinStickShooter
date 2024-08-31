@@ -41,10 +41,6 @@ public class ApplyZombieAnim : MonoBehaviour
         animator.SetFloat(WalkAnimSpeed, valueDirection);
         ChackOtherAnims(animType, value);
     }
-    public void ApplyAnim(string animType)
-    {
-        animator.SetTrigger(animType);
-    }
 
     public void ChackOtherAnims(string applyedAnim, bool value) //Chacking anims
     {

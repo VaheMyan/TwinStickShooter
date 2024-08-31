@@ -1,6 +1,8 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AimAbility : MonoBehaviour, IAbility
 {
@@ -17,6 +19,8 @@ public class AimAbility : MonoBehaviour, IAbility
 
     public void Execute()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 2 && !PhotonView.Get(this.gameObject).IsMine) return;
+
         Vector3 crosshairScreenPosition = crosshairs.transform.position;
         Ray ray = cameraMain.ScreenPointToRay(crosshairScreenPosition);
         RaycastHit hit;

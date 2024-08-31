@@ -1,9 +1,10 @@
 using UnityEngine;
-using Unity.Entities;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using Photon.Pun;
 
-public class PlayerHealth : MonoBehaviour, IConvertGameObjectToEntity
+public class PlayerHealth : MonoBehaviour
 {
     public int _maxHealth = 10;
     public int _currenthealth;
@@ -11,15 +12,18 @@ public class PlayerHealth : MonoBehaviour, IConvertGameObjectToEntity
     private GiveBonusAbility giveBonusAbility;
     private GameManager gameManager;
     private HealthBar healthBar;
-    private Entity _entity;
-    private EntityManager _dsManager;
+    private NetworkManager networkManager;
+    private bool startDeath = false;
 
     private void Start()
     {
         giveBonusAbility = GameObject.FindObjectOfType<GiveBonusAbility>();
         gameManager = GameObject.FindObjectOfType<GameManager>();
-        //deathBonusesPanel = GameObject.FindGameObjectWithTag("BonusesPanel");
         healthBar = FindObjectOfType<HealthBar>();
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            networkManager = GameObject.FindObjectOfType<NetworkManager>();
+        }
 
         _currenthealth = _maxHealth;
         healthBar.SetMaxHealth(_maxHealth);
@@ -43,27 +47,43 @@ public class PlayerHealth : MonoBehaviour, IConvertGameObjectToEntity
             }
         }
     }
+
     public async void Die()
     {
-        if (_entity != Entity.Null && _dsManager != null)
+        if (!startDeath)
         {
+            startDeath = true;
+
             await Task.Delay(100);
             gameManager.GiveCoin(100);
             giveBonusAbility.UpdateBonusesPanel(100);
+            if (SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                PlayerMultiplayerData.Instance.RemovePlayerTransform(transform);
+                networkManager.StartDisconnected();
+                Destroy(this.gameObject);
+                return;
+            }
             Time.timeScale = 0f;
-        }
-        else
-        {
-            Debug.LogWarning("Entity or EntityManager is not set properly.");
         }
     }
 
     public void TakeDamage(int damage)
     {
-        _currenthealth -= damage;
-        healthBar.SetHealth(_currenthealth);
+        if (SceneManager.GetActiveScene().buildIndex == 2 && PhotonView.Get(this.gameObject).IsMine)
+        {
+            _currenthealth -= damage;
+            healthBar.SetHealth(_currenthealth);
 
-        if (_currenthealth <= 0) Die();
+            if (_currenthealth <= 0) Die();
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            _currenthealth -= damage;
+            healthBar.SetHealth(_currenthealth);
+
+            if (_currenthealth <= 0) Die();
+        }
     }
 
     public void GiveBenefit(int benefit)
@@ -76,11 +96,5 @@ public class PlayerHealth : MonoBehaviour, IConvertGameObjectToEntity
         }
         _currenthealth += benefit;
         healthBar.SetHealth(_currenthealth);
-    }
-
-    public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
-    {
-        _entity = entity;
-        _dsManager = dstManager;
     }
 }

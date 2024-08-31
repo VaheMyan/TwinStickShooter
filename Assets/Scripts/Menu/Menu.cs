@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Entities;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,9 +16,15 @@ public class Menu : MonoBehaviour
     //Game
     [SerializeField] private GameObject _pauseMenu;
     [SerializeField] private bool isPause = false;
+    [SerializeField] private NetworkManager networkManager;
 
     private void Start()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            networkManager = GameObject.FindObjectOfType<NetworkManager>();
+        }
+
         MusicVolume();
         SFXVolume();
     }
@@ -49,35 +53,92 @@ public class Menu : MonoBehaviour
     }
     public void Pause()
     {
-        Time.timeScale = ToFloat(isPause);
-        _pauseMenu.SetActive(!isPause);
-        isPause = !isPause;
-    }
-    private float ToFloat(bool value)
-    {
-        return value ? 1.0f : 0.0f;
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            if (isPause)
+            {
+                Continue();
+            }
+            else
+            {
+                _pauseMenu.SetActive(true);
+                isPause = true;
+                Time.timeScale = 0f;
+            }
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            if (isPause)
+            {
+                Continue();
+            }
+            else
+            {
+                _pauseMenu.SetActive(true);
+                isPause = true;
+            }
+        }
     }
     public void Continue()
     {
         _pauseMenu.SetActive(false);
+        isPause = false;
         Time.timeScale = 1f;
     }
-    public void Reset()
+    public async void Reset()
     {
-        var entityManager = Unity.Entities.World.DefaultGameObjectInjectionWorld.EntityManager;
-        entityManager.DestroyEntity(entityManager.UniversalQuery);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
-        Time.timeScale = 1f;
+            Time.timeScale = 1f;
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            networkManager.StartDisconnected();
+
+            while (true)
+            {
+                await Task.Delay(100);
+                if (networkManager.endDisconnected)
+                {
+                    _pauseMenu.SetActive(false);
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+                    Time.timeScale = 1f;
+                    return;
+                }
+            }
+        }
     }
-    public void BackMainMenu()
+    public async void BackMainMenu()
     {
-        var entityManager = Unity.Entities.World.DefaultGameObjectInjectionWorld.EntityManager;
-        entityManager.DestroyEntity(entityManager.UniversalQuery);
-        _pauseMenu.SetActive(false);
-        SceneManager.LoadScene(0);
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            var entityManager = Unity.Entities.World.DefaultGameObjectInjectionWorld.EntityManager;
+            entityManager.DestroyEntity(entityManager.UniversalQuery);
+            _pauseMenu.SetActive(false);
+            SceneManager.LoadScene(0);
 
-        Time.timeScale = 1f;
+            Time.timeScale = 1f;
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            networkManager.StartDisconnected();
+
+            while (true)
+            {
+                await Task.Delay(100);
+                if (networkManager.endDisconnected)
+                {
+                    _pauseMenu.SetActive(false);
+                    SceneManager.LoadScene(0);
+
+                    Time.timeScale = 1f;
+                    return;
+                }
+            }
+        }
     }
 
     //Music

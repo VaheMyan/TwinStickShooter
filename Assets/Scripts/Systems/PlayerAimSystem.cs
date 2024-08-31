@@ -1,26 +1,36 @@
+using System.Threading.Tasks;
 using UnityEngine;
-using Unity.Entities;
+using Photon.Pun;
+using UnityEngine.SceneManagement;
 
-public class PlayerAimSystem : ComponentSystem
+public class PlayerAimSystem : MonoBehaviour
 {
-    private EntityQuery _aimQuery;
+    private UserInputData userInputData;
+    private AimAbility aimAbility;
 
-    protected override void OnCreate()
+    private void Start()
     {
-        _aimQuery = GetEntityQuery(ComponentType.ReadOnly<AimAbility>(), ComponentType.ReadOnly<UserInputData>());
+        userInputData = GetComponent<UserInputData>();
+        aimAbility = GetComponent<AimAbility>();
+
+        OnUpdate();
     }
-    protected override void OnUpdate()
+    private async void OnUpdate()
     {
-        Entities.With(_aimQuery).ForEach((Entity entity, ref AimData aimData, AimAbility aimAbility, UserInputData inputData) =>
+        while (true)
         {
-            if (inputData.AimAction != null && inputData.AimAction is IAbility ability)
+            if (this == null || SceneManager.GetActiveScene().buildIndex == 2 && !PhotonView.Get(this.gameObject).IsMine) return;
+
+            if (userInputData.AimAction != null && userInputData.AimAction is IAbility ability)
             {
                 aimAbility.mousePosition = Input.mousePosition;
                 aimAbility.crosshairs.transform.position = new Vector2(aimAbility.mousePosition.x, aimAbility.mousePosition.y);
 
                 ability.Execute();
             }
-        });
+
+            await Task.Delay(10);
+        }
     }
 
 

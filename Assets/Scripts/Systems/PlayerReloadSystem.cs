@@ -1,24 +1,31 @@
+using Photon.Pun;
+using System.Threading.Tasks;
 using UnityEngine;
-using Unity.Entities;
+using UnityEngine.SceneManagement;
 
-public class PlayerReloadSystem : ComponentSystem
+public class PlayerReloadSystem : MonoBehaviour
 {
-    private EntityQuery _reloadQuery;
+    private UserInputData userInputData;
 
-    protected override void OnCreate()
+    private void Start()
     {
-        _reloadQuery = GetEntityQuery(ComponentType.ReadOnly<ApplyReload>(), ComponentType.ReadOnly<UserInputData>());
+        userInputData = GetComponent<UserInputData>();
+
+        OnUpdate();
     }
-    protected override void OnUpdate()
+    private async void OnUpdate()
     {
-        Entities.With(_reloadQuery).ForEach((Entity entity, ref InputData input, ApplyReload applyReload, UserInputData inputData) =>
+        while (true)
         {
-            if (inputData.ReloadAction != null && input.Reload == 1f && inputData.ReloadAction is IAbility ability)
+            if (this == null) return;
+            if (SceneManager.GetActiveScene().buildIndex == 2 && !PhotonView.Get(this.gameObject).IsMine) return;
+
+            if (userInputData.ReloadAction != null && userInputData.inputData.Reload == 1f && userInputData.ReloadAction is IAbility ability)
             {
                 ability.Execute();
             }
-        });
+
+            await Task.Delay(10);
+        }
     }
-
-
 }

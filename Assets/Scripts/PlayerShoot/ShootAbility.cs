@@ -1,6 +1,8 @@
+using Photon.Pun;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ShootAbility : MonoBehaviour, IAbility, IAbilityTarget
 {
@@ -42,6 +44,8 @@ public class ShootAbility : MonoBehaviour, IAbility, IAbilityTarget
     public List<GameObject> Targets { get; set; }
     public void Execute()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 2 && !PhotonView.Get(this.gameObject).IsMine) return;
+
         if (isBonusShootDelay) shootDelay = 0.1f;
         else shootDelay = 0.2f;
 

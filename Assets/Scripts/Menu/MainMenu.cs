@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
     public Text coinText;
 
     //Menu
+    [SerializeField] private GameObject _selectPlaybackMode;
     [SerializeField] private GameObject _playerSelectMenu;
     [SerializeField] private GameObject _settingsMenu;
     [SerializeField] private GameObject _mainMenu;
@@ -31,8 +32,17 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
+        _selectPlaybackMode.SetActive(true);
+    }
+    public void StartWithSingleMode()
+    {
         SceneManager.LoadScene(1);
     }
+    public void StartWithMultiplayerMode()
+    {
+        SceneManager.LoadScene(2);
+    }
+
     public void QuiteGame()
     {
         Application.Quit();
@@ -56,6 +66,10 @@ public class MainMenu : MonoBehaviour
     {
         _playerSelectMenu.SetActive(false);
         _mainMenu.SetActive(true);
+    }
+    public void BackToMainMenuFromSelectPlaybackMode()
+    {
+        _selectPlaybackMode.SetActive(false);
     }
     public void Reset()
     {

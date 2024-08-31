@@ -2008,7 +2008,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 837f79bcbf98ea946b3c32443e6b3c48, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -2068,6 +2068,7 @@ MonoBehaviour:
   AttackDistance: 2
   WalkkDistance: 50
   targetTransform: {fileID: 0}
+  TargetTransforms: []
   isAttack: 0
   isDamaging: 0
 --- !u!114 &7531933782084481711

@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Mathematics;
-using Unity.Entities;
+using System.Threading.Tasks;
+using Photon.Pun;
+using UnityEngine.SceneManagement;
 
-public class UserInputSystem : ComponentSystem
+public class UserInputSystem : MonoBehaviour
 {
-    public EntityQuery _inputQuery;
-
     public InputAction _moveAcion;
     public InputAction _shootAction;
     public InputAction _pauseAction;
@@ -17,13 +17,14 @@ public class UserInputSystem : ComponentSystem
     private float _pouseInput;
     public float _reloadInput;
 
-    protected override void OnCreate()
-    {
-        _inputQuery = GetEntityQuery(ComponentType.ReadOnly<InputData>(), ComponentType.ReadOnly<UserInputData>());
-    }
+    private UserInputData userInputData;
 
-    protected override void OnStartRunning()
+    private void Start()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 2 && !PhotonView.Get(this.gameObject).IsMine) return;
+
+        userInputData = GetComponent<UserInputData>();
+
         // Joystik
         _moveAcion = new InputAction(name: "move", binding: "<Gamepad>/rightStick");
         _moveAcion.AddCompositeBinding("Dpad")
@@ -54,9 +55,11 @@ public class UserInputSystem : ComponentSystem
         _reloadAction.started += context => { _reloadInput = context.ReadValue<float>(); };
         _reloadAction.canceled += context => { _reloadInput = context.ReadValue<float>(); };
         _reloadAction.Enable();
+
+        OnUpdate();
     }
 
-    protected override void OnStopRunning()
+    private void OnDisable()
     {
         _moveAcion.Disable();
         _shootAction.Disable();
@@ -64,14 +67,28 @@ public class UserInputSystem : ComponentSystem
         _reloadAction.Disable();
     }
 
-    protected override void OnUpdate()
+    private async void OnUpdate()
     {
-        Entities.With(_inputQuery).ForEach((Entity entity, ref InputData inputData) =>
+        while (true)
         {
-            inputData.Move = _moveInput;
-            inputData.Shoot = _shootInput;
-            inputData.Pause = _pouseInput;
-            inputData.Reload = _reloadInput;
-        });
+            if (this == null) return;
+
+            if (SceneManager.GetActiveScene().buildIndex == 2 && PhotonView.Get(this.gameObject).IsMine)
+            {
+                userInputData.inputData.Move = _moveInput;
+                userInputData.inputData.Shoot = _shootInput;
+                userInputData.inputData.Pause = _pouseInput;
+                userInputData.inputData.Reload = _reloadInput;
+            }
+            else
+            {
+                userInputData.inputData.Move = _moveInput;
+                userInputData.inputData.Shoot = _shootInput;
+                userInputData.inputData.Pause = _pouseInput;
+                userInputData.inputData.Reload = _reloadInput;
+            }
+
+            await Task.Delay(10);
+        }
     }
 }

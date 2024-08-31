@@ -1114,7 +1114,6 @@ GameObject:
   - component: {fileID: 3307829321854485650}
   - component: {fileID: 8865311585413881576}
   - component: {fileID: 3057236350077557305}
-  - component: {fileID: 3057236350077557306}
   - component: {fileID: 3057236350077557307}
   - component: {fileID: 3057236351074257702}
   - component: {fileID: 8091570655211953800}
@@ -1126,6 +1125,12 @@ GameObject:
   - component: {fileID: 1358645482}
   - component: {fileID: 5825003045033404379}
   - component: {fileID: 286205106213033962}
+  - component: {fileID: -8983015845387797728}
+  - component: {fileID: -4564214915219118786}
+  - component: {fileID: -2453465036966175822}
+  - component: {fileID: 5905444544779917367}
+  - component: {fileID: 2676641860296846487}
+  - component: {fileID: 5180172210770740478}
   m_Layer: 0
   m_Name: PlayerBeardHair
   m_TagString: Player
@@ -1163,9 +1168,9 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 7966d979d9982a743a30e3b75a402b94, type: 3}
   m_Controller: {fileID: 9100000, guid: 56810f89d517a4e4d9e154b1b723dcbc, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -1198,19 +1203,6 @@ MonoBehaviour:
   reloadAnimHash: ReloadAnim
   dieAnimHash: 
   isTestRun: 0
---- !u!114 &3057236350077557306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2786625988399881768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConversionMode: 1
 --- !u!114 &3057236350077557307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1319,7 +1311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb6c8040c430e7a40b5f2114fb4ce3b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3.5
+  speed: 7
   movementDirection: MovementDirection
   isBonus: 0
 --- !u!114 &1358645481
@@ -1381,6 +1373,115 @@ CapsuleCollider:
   m_Height: 3.741
   m_Direction: 1
   m_Center: {x: 0, y: 1.87, z: 0}
+--- !u!114 &-8983015845387797728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2786625988399881768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f7e95bee9bc3db4ab7efe4cd3679359, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-4564214915219118786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2786625988399881768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ea5886fec987934e83d3357f7c64326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-2453465036966175822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2786625988399881768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a26bd9d6b78fb34fb19e824d2eae5c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5905444544779917367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2786625988399881768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95a31f85a20dc445873f2f3efa43083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2676641860296846487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2786625988399881768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ec8184d1915cc4f891381a23c9da03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5180172210770740478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2786625988399881768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a41cf1e8d505d4d91aa1bb451d65c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveAcion:
+    m_Name: Move Acion
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 4d6645c6-cfc7-49e0-a459-2d46e0e3a345
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  _shootAction:
+    m_Name: Shoot
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 40ef977f-d433-41e1-88a2-b74cd711ded9
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  _pauseAction:
+    m_Name: Pause
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 4dd5c4ef-aa06-4b8d-8415-4a0de3c6288a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  _reloadAction:
+    m_Name: Reload
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 12d78a13-4cd0-469c-b3c7-0a1d3e925be5
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  _reloadInput: 0
 --- !u!1 &3082000822205420421
 GameObject:
   m_ObjectHideFlags: 0

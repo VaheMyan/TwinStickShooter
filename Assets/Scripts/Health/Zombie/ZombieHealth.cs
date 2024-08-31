@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class ZombieHealth : MonoBehaviour
 {
@@ -23,7 +25,10 @@ public class ZombieHealth : MonoBehaviour
         giveBonusAbility = GameObject.FindObjectOfType<GiveBonusAbility>();
         gameManager = GameObject.FindObjectOfType<GameManager>();
 
-        giveBonusAbility.CreateKilledZombieCell(gameObject.tag);
+        if (giveBonusAbility != null)
+        {
+            giveBonusAbility.CreateKilledZombieCell(gameObject.tag);
+        }
     }
     public int Health
     {
@@ -46,7 +51,7 @@ public class ZombieHealth : MonoBehaviour
 
             zombieMove.targetTransform = null;
 
-            zombieAnim.ApplyAnim(zombieAnim.DeathAnimHash);
+            zombieAnim.ApplyAnim(zombieAnim.DeathAnimHash, true);
             await Task.Delay(100);
 
             Canvas.SetActive(false);
@@ -56,7 +61,8 @@ public class ZombieHealth : MonoBehaviour
             giveBonusAbility.UpdateKilledZombiesCout(gameObject.tag);
             await Task.Delay(1000);
             gameManager.InstantiatePotion(transform.position);
-            if (this != null) Destroy(gameObject);
+            if (this != null && SceneManager.GetActiveScene().buildIndex == 2) PhotonNetwork.Destroy(gameObject);
+            else if (this != null && SceneManager.GetActiveScene().buildIndex == 1) Destroy(gameObject);
         }
     }
 
@@ -71,5 +77,20 @@ public class ZombieHealth : MonoBehaviour
     public void GiveBenefitZombie(int benefit)
     {
         _currenthealth += benefit;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            // Send the current health to other players
+            stream.SendNext(_currenthealth);
+        }
+        else
+        {
+            // Receive the current health from other players
+            _currenthealth = (int)stream.ReceiveNext();
+            healthBar.SetHealthZombie(_currenthealth);
+        }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Threading.Tasks;
 using System;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class Cell
@@ -36,7 +37,8 @@ public class GiveBonusAbility : MonoBehaviour
     public BonusesText[] BonusesTexts = new BonusesText[6];
     public GameObject DeathBonusesPanel;
 
-    private GameManager gameManger;
+    public Sprite[] ItemsSprites = new Sprite[4];
+
     private ApplyPlayerState playerState;
     private ApplyPlayerAmmo playerAmmo;
     private ApplyPlayerAnimDirection playerAnimDirection;
@@ -46,24 +48,35 @@ public class GiveBonusAbility : MonoBehaviour
 
     private void Start()
     {
-        playerAmmo = GameObject.FindObjectOfType<ApplyPlayerAmmo>();
-        gameManger = GameObject.FindObjectOfType<GameManager>();
         playerState = GameObject.Find("GameManager").GetComponent<ApplyPlayerState>();
-        playerAnimDirection = GameObject.FindObjectOfType<ApplyPlayerAnimDirection>();
-        shootAbility = GameObject.FindObjectOfType<ShootAbility>();
 
         actions.Add(DefenseBonus);
         actions.Add(SpeedBonus);
         actions.Add(DamageBonus);
         actions.Add(WeaponBonus);
 
-        //Score
-        GivePlayerScore(1);
+        //Multiplayer
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            FindPlayer();
+            return;
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            playerAmmo = GameObject.FindObjectOfType<ApplyPlayerAmmo>();
+            playerAnimDirection = GameObject.FindObjectOfType<ApplyPlayerAnimDirection>();
+            shootAbility = GameObject.FindObjectOfType<ShootAbility>();
+
+            //Score
+            GivePlayerScore(1);
+        }
     }
 
     //Update Bonuses Panel
     public void UpdateBonusesPanel(int _coins)
     {
+        if (playerAmmo == null) return;
+
         DeathBonusesPanel.SetActive(true);
 
         BonusesTexts[0].Cout.text = currentScore.ToString();
@@ -109,13 +122,14 @@ public class GiveBonusAbility : MonoBehaviour
     public async void GivePlayerScore(int score)
     {
         if (scoreText == null) return;
-        currentScore += score;
+        currentScore += score * (int)Time.timeScale;
         scoreText.text = currentScore.ToString();
 
         await Task.Delay(500);
         GivePlayerScore(1);
     }
 
+    //Give Bonuses
     public void GiveBonus(int _bonusIndex, Sprite _itemSprite, float _duration)
     {
         foreach (var cell in cells)
@@ -123,6 +137,24 @@ public class GiveBonusAbility : MonoBehaviour
             if (cell.UIImages.sprite == null)
             {
                 cell.UIImages.sprite = _itemSprite;
+                cell.UIImages.SetNativeSize();
+                cell.UICell.SetActive(true);
+                Timer(_bonusIndex, cell.TimerText, _duration, index);
+
+                actions[_bonusIndex].Invoke();
+                index = 0;
+                return;
+            }
+            index++;
+        }
+    }
+    public void GiveBonus(int _bonusIndex, float _duration)
+    {
+        foreach (var cell in cells)
+        {
+            if (cell.UIImages.sprite == null)
+            {
+                cell.UIImages.sprite = ItemsSprites[_bonusIndex];
                 cell.UIImages.SetNativeSize();
                 cell.UICell.SetActive(true);
                 Timer(_bonusIndex, cell.TimerText, _duration, index);
@@ -183,5 +215,23 @@ public class GiveBonusAbility : MonoBehaviour
     private void WeaponBonus()
     {
         shootAbility.isBonusShootDelay = !shootAbility.isBonusShootDelay;
+    }
+
+    private async void FindPlayer()
+    {
+        GameObject Player = null;
+        while (Player == null)
+        {
+            await Task.Delay(500);
+            Player = PlayerMultiplayerData.Instance.Player;
+        }
+
+        playerAmmo = Player.GetComponent<ApplyPlayerAmmo>();
+        playerAnimDirection = Player.GetComponent<ApplyPlayerAnimDirection>();
+        shootAbility = Player.GetComponent<ShootAbility>();
+
+        //Score
+        GivePlayerScore(1);
+        return;
     }
 }

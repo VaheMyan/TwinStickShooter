@@ -1,6 +1,8 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ApplyReload : MonoBehaviour, IAbility
 {
@@ -23,6 +25,8 @@ public class ApplyReload : MonoBehaviour, IAbility
 
     public void Execute()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 2 && !PhotonView.Get(this.gameObject).IsMine) return;
+
         if (isReloading == false && canRealoading)
         {
             isReloading = true;

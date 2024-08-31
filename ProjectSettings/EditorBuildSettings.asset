@@ -9,8 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: a582e835a18b8124a81c11445e18b296
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/TwinStickShooter.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/TwinStickShooterMultiplayer.unity
+    guid: 0fbcdf7779250494687e1fefeb68f3c8
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9bd241f0c44aba64b8de44723f20a10f,
       type: 2}

@@ -399,6 +399,7 @@ MonoBehaviour:
   AttackDistance: 2
   WalkkDistance: 12
   targetTransform: {fileID: 0}
+  TargetTransforms: []
   isAttack: 0
   isDamaging: 0
 --- !u!195 &6537513417695525460

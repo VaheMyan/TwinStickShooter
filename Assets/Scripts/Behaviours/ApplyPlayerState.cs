@@ -1,6 +1,9 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ApplyPlayerState : MonoBehaviour
 {
@@ -9,23 +12,59 @@ public class ApplyPlayerState : MonoBehaviour
 
     private void Start()
     {
-        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        //Multiplayer
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            FindPlayer();
+            return;
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        }
     }
 
     public void TakeDamage(int _damage)
     {
-        if (isReduce)
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            playerHealth.TakeDamage(_damage -= (_damage - (_damage / 3)));
+            if (isReduce)
+            {
+                playerHealth.TakeDamage(_damage -= (_damage - (_damage / 3)));
+            }
+            else
+            {
+                playerHealth.TakeDamage(_damage);
+            }
         }
-        else
+        if (SceneManager.GetActiveScene().buildIndex == 2 && PhotonView.Get(playerHealth.gameObject).IsMine)
         {
-            playerHealth.TakeDamage(_damage);
+            if (isReduce)
+            {
+                playerHealth.TakeDamage(_damage -= (_damage - (_damage / 3)));
+            }
+            else
+            {
+                playerHealth.TakeDamage(_damage);
+            }
         }
     }
 
     public void GiveBenefit(int benefit)
     {
         playerHealth.GiveBenefit(benefit);
+    }
+
+    private async void FindPlayer()
+    {
+        //Multiplayer
+        GameObject Player = null;
+        while (Player == null)
+        {
+            await Task.Delay(500);
+            Player = PlayerMultiplayerData.Instance.Player;
+        }
+        playerHealth = Player.GetComponent<PlayerHealth>();
+        return;
     }
 }
